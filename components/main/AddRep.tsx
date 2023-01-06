@@ -1,5 +1,5 @@
 import { Set } from "@prisma/client";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 
 interface Props {
@@ -8,6 +8,7 @@ interface Props {
 
 export const AddRep = ({ userId }: Props) => {
   const [reps, setReps] = useState(0);
+  const router = useRouter();
 
   const onChangeReps = (e: ChangeEvent<HTMLInputElement>) => {
     setReps(Number(e.target.value));
@@ -28,6 +29,7 @@ export const AddRep = ({ userId }: Props) => {
     });
 
     setReps(0);
+    router.replace(router.asPath);
   };
 
   return (
