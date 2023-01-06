@@ -17,6 +17,8 @@ export interface User {
 
 export interface Exercise {
   id: string
-  name: string
+  name: ExerciseName
   sets:  Set[]
 }
+
+export type ExerciseName = "Pull ups" | "Push ups" | "Squats";
