@@ -1,8 +1,8 @@
 import { format, isToday } from "date-fns";
 import { Set, User } from "../../models/models";
-import { TableHeader } from "./TableHeader";
+import { UserDisplay } from "../UserDisplay";
 import { groupBy } from "lodash";
-import { AddRep } from "./AddRep";
+import { ReactNode } from "react";
 
 interface Props {
   sets: Set[];
@@ -17,54 +17,65 @@ export const RepsTable = ({ sets, users }: Props) => {
   const noneToday = !sets.some((set) => isToday(new Date(set.createdAt)));
 
   return (
-    <table className="w-full table-fixed border border-collapse border-slate-300 rounded min-w-[800px]">
+    <table className="w-full table-fixed border-collapse min-w-[950px]">
       <thead>
-        <tr className="bg-slate-100">
+        <tr>
           <th />
           {users.map((user) => (
-            <th key={user.id} className="border border-slate-300 px-1 py-1">
-              <TableHeader user={user} />
-            </th>
+            <Th key={user.id} >
+              <UserDisplay user={user} />
+            </Th>
           ))}
         </tr>
       </thead>
-      <tbody>
+      <tbody className="border border-slate-200">
         {Object.values(days).map((day, index) => (
           <tr key={index}>
-            <td className="border border-slate-300 px-3 py-1">
-              {format(new Date(day[0].createdAt), "dd MMM")}
-            </td>
+            <Td className="font-bold">
+              {format(new Date(day[0].createdAt), "MMM d")}
+            </Td>
             {users.map((user) => (
-              <td key={user.id} className="border border-slate-300 px-3 py-1">
+              <Td key={user.id}>
                 {day
                   .filter((set) => set.userId === user.id)
                   .map((set) => set.reps)
                   .reduce((a, b) => a + b, 0)}
-              </td>
+              </Td>
             ))}
           </tr>
         ))}
         {noneToday && (
           <tr>
-            <td className="border border-slate-300 px-3 py-1">
-              {format(new Date(), "dd MMM")}
-            </td>
+            <Td className="font-bold">
+              {format(new Date(), "MMM dd")}
+            </Td>
             {users.map((user) => (
-              <td key={user.id} className="border border-slate-300 px-3 py-1">
+              <Td key={user.id}>
                 0
-              </td>
+              </Td>
             ))}
           </tr>
         )}
         <tr>
-          <td className="border border-slate-300 px-3 py-1">Add reps today</td>
+          <Td className="font-bold">Total</Td>
           {users.map((user) => (
-            <td key={user.id} className="border border-slate-300 px-3 py-1">
-              <AddRep userId={user.id} />
-            </td>
+            <Td className="font-bold" key={user.id}>
+              {sets
+                  .filter((set) => set.userId === user.id)
+                  .map((set) => set.reps)
+                  .reduce((a, b) => a + b, 0)}
+            </Td>
           ))}
         </tr>
       </tbody>
     </table>
   );
 };
+
+interface DataProps {
+  className?: string;
+  children: ReactNode;
+}
+
+const Th = ({children}: DataProps) => <th className="px-3 py-2 bg-slate-200 ">{children}</th>
+const Td = ({className, children}: DataProps) => <td className={`${className} border-b border-slate-200 px-3 py-2`}>{children}</td>
