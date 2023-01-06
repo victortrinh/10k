@@ -27,7 +27,7 @@ export const AddRep = ({ userId }: Props) => {
       body: JSON.stringify(body),
     });
 
-    window.location.reload();
+    setReps(0);
   };
 
   return (
