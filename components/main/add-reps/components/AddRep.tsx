@@ -1,8 +1,8 @@
 import { Set } from "@prisma/client";
-import Router, { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import { User } from "../../../../models";
 import { UserDisplay } from "../../../UserDisplay";
+import { addSet } from "../../../../stores/setStore";
 
 interface Props {
   user: User;
@@ -10,7 +10,6 @@ interface Props {
 
 export const AddRep = ({ user }: Props) => {
   const [reps, setReps] = useState(0);
-  const router = useRouter();
 
   const onChangeReps = (e: ChangeEvent<HTMLInputElement>) => {
     setReps(Number(e.target.value));
@@ -24,14 +23,15 @@ export const AddRep = ({ user }: Props) => {
       userId,
     };
 
-    await fetch("/api/set", {
+    const response = await fetch("/api/set", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
+    const newSet = await response.json();
 
     setReps(0);
-    router.replace(router.asPath);
+    addSet(newSet);
   };
 
   return (

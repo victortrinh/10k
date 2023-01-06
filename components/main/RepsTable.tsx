@@ -3,13 +3,14 @@ import { Set, User } from "../../models/models";
 import { UserDisplay } from "../UserDisplay";
 import { groupBy } from "lodash";
 import { ReactNode } from "react";
+import { useSetStore } from "../../stores/setStore";
 
 interface Props {
-  sets: Set[];
   users: User[];
 }
 
-export const RepsTable = ({ sets, users }: Props) => {
+export const RepsTable = ({ users }: Props) => {
+  const sets = useSetStore((state) => state.sets);
   const days: Set[][] = groupBy(sets, (set) =>
     format(new Date(set.createdAt), "dd MMM")
   );
@@ -22,7 +23,7 @@ export const RepsTable = ({ sets, users }: Props) => {
         <tr>
           <th />
           {users.map((user) => (
-            <Th key={user.id} >
+            <Th key={user.id}>
               <UserDisplay user={user} />
             </Th>
           ))}
@@ -46,13 +47,9 @@ export const RepsTable = ({ sets, users }: Props) => {
         ))}
         {noneToday && (
           <tr>
-            <Td className="font-bold">
-              {format(new Date(), "MMM dd")}
-            </Td>
+            <Td className="font-bold">{format(new Date(), "MMM dd")}</Td>
             {users.map((user) => (
-              <Td key={user.id}>
-                0
-              </Td>
+              <Td key={user.id}>0</Td>
             ))}
           </tr>
         )}
@@ -61,9 +58,9 @@ export const RepsTable = ({ sets, users }: Props) => {
           {users.map((user) => (
             <Td className="font-bold" key={user.id}>
               {sets
-                  .filter((set) => set.userId === user.id)
-                  .map((set) => set.reps)
-                  .reduce((a, b) => a + b, 0)}
+                .filter((set) => set.userId === user.id)
+                .map((set) => set.reps)
+                .reduce((a, b) => a + b, 0)}
             </Td>
           ))}
         </tr>
@@ -77,5 +74,11 @@ interface DataProps {
   children: ReactNode;
 }
 
-const Th = ({children}: DataProps) => <th className="px-3 py-2 bg-slate-200 ">{children}</th>
-const Td = ({className, children}: DataProps) => <td className={`${className} border-b border-slate-200 px-3 py-2`}>{children}</td>
+const Th = ({ children }: DataProps) => (
+  <th className="px-3 py-2 bg-slate-200 ">{children}</th>
+);
+const Td = ({ className, children }: DataProps) => (
+  <td className={`${className} border-b border-slate-200 px-3 py-2`}>
+    {children}
+  </td>
+);
