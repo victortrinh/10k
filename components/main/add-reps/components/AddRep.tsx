@@ -13,7 +13,7 @@ const sendDiscordMessage = (name: string, reps: number, exercise: string) => {
   const request = new XMLHttpRequest();
   request.open(
     "POST",
-    "https://discord.com/api/webhooks/1061005908655751300/bK_v8DFOwm9LYZ65NFjwJVuwnx6JROTaTSAFIz9fgdIDpJPoyD4cdJFBqe4t95vBfs0e"
+    `https://discord.com/api/webhooks/${process.env.DISCORD_USERNAME}/${process.env.DISCORD_SECRET}`
   );
 
   request.setRequestHeader("Content-type", "application/json");
