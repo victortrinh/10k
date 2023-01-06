@@ -9,28 +9,28 @@ interface Props {
   user: User;
 }
 
-const sendDiscordMessage = (name: string, reps: number, exercise: string) => {
-  const request = new XMLHttpRequest();
-  request.open(
-    "POST",
-    `https://discord.com/api/webhooks/${process.env.DISCORD_USERNAME}/${process.env.DISCORD_SECRET}`
-  );
-
-  request.setRequestHeader("Content-type", "application/json");
-
-  const params = {
-    username: "Stay Hard Beast",
-    content: `${name} just did ${reps} ${exercise}! Keep up you scrub!`,
-  };
-
-  request.send(JSON.stringify(params));
-};
-
 export const AddRep = ({ exercise, user }: Props) => {
   const [reps, setReps] = useState("");
 
   const onChangeReps = (e: ChangeEvent<HTMLInputElement>) => {
     setReps(e.target.value);
+  };
+
+  const sendDiscordMessage = (name: string, reps: number, exercise: string) => {
+    const request = new XMLHttpRequest();
+    request.open(
+      "POST",
+      `https://discord.com/api/webhooks/${process.env.DISCORD_USERNAME}/${process.env.DISCORD_SECRET}`
+    );
+
+    request.setRequestHeader("Content-type", "application/json");
+
+    const params = {
+      username: "Stay Hard Beast",
+      content: `${name} just did ${reps} ${exercise}! Keep up you scrub!`,
+    };
+
+    request.send(JSON.stringify(params));
   };
 
   const onAddSet = async (userId: string) => {
