@@ -35,6 +35,7 @@ const Main = ({ sets, users }: Props) => {
     <Layout>
       <Container>
         <main>
+          HEIN????????
           <Heading as="h1">Add reps today</Heading>
           <div className="flex flex-col gap-8">
             <div className="overflow-x-auto max-w-full">
