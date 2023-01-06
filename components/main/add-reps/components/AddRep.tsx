@@ -20,7 +20,7 @@ const sendDiscordMessage = (name: string, reps: number, exercise: string) => {
 
   const params = {
     username: "Stay Hard Beast",
-    content: `${name} just added ${reps} ${exercise}!`,
+    content: `${name} just did ${reps} ${exercise}! Keep up you scrub!`,
   };
 
   request.send(JSON.stringify(params));
