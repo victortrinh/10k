@@ -31,7 +31,6 @@ export const AddRep = ({ user }: Props) => {
     });
 
     setReps(0);
-    router.replace(router.asPath);
   };
 
   return (
