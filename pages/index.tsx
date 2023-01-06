@@ -2,41 +2,39 @@ import React from "react";
 import { GetStaticProps } from "next";
 import Layout from "../components/Layout";
 import prisma from "../lib/prisma";
-import Router from "next/router";
-import { Heading, Container } from "../components/design-system";
+import { Container } from "../components/design-system";
+import { RepsTable } from "../components/main/RepsTable";
+import { Set, User } from "../models/models";
 
 export const getStaticProps: GetStaticProps = async () => {
-  const feed = await prisma.user.findMany();
+  const users = await prisma.user.findMany();
+  const sets = await prisma.set.findMany({
+    include: {
+      user: true,
+      exercise: true,
+    },
+  });
 
   return {
-    props: { feed },
+    props: {
+      users,
+      sets: JSON.parse(JSON.stringify(sets)),
+    },
     revalidate: 10,
   };
 };
 
-const Main = (props) => {
+interface Props {
+  users: User[];
+  sets: Set[];
+}
+
+const Main = ({ sets, users }: Props) => {
   return (
     <Layout>
       <Container>
-        <Heading as="h1">Who you?</Heading>
-        <main>
-          {props.feed.map((user) => (
-            <div
-              onClick={() => Router.push("/user/[id]", `/user/${user.id}`)}
-              key={user.id}
-              className="flex items-center cursor-pointer"
-            >
-              {user.imageUrl && (
-                <img
-                  src={user.imageUrl}
-                  alt={user.name}
-                  width="30"
-                  height="auto"
-                />
-              )}
-              {user.name}
-            </div>
-          ))}
+        <main className="overflow-auto">
+          <RepsTable sets={sets} users={users} />
         </main>
       </Container>
     </Layout>

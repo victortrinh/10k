@@ -6,8 +6,8 @@ type Props = {
 };
 
 const Layout = ({ children }: Props) => (
-  <div>
-    <Header />
+  <div className="mt-12">
+    {/* <Header /> */}
     <div>{children}</div>
   </div>
 );
