@@ -5,10 +5,11 @@ import { UserDisplay } from "../../../UserDisplay";
 import { addSet } from "../../../../stores/setStore";
 
 interface Props {
+  exerciseId: string;
   user: User;
 }
 
-export const AddRep = ({ user }: Props) => {
+export const AddRep = ({ exerciseId, user }: Props) => {
   const [reps, setReps] = useState(0);
 
   const onChangeReps = (e: ChangeEvent<HTMLInputElement>) => {
@@ -18,8 +19,8 @@ export const AddRep = ({ user }: Props) => {
   const onAddSet = async (userId: string) => {
     const body: Omit<Set, "id"> = {
       createdAt: new Date(),
-      exerciseId: "clcjvxy5z0002ipgoujlq2yx0",
-      reps: reps,
+      exerciseId,
+      reps,
       userId,
     };
 

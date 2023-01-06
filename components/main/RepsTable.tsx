@@ -6,16 +6,20 @@ import { ReactNode } from "react";
 import { useSetStore } from "../../stores/setStore";
 
 interface Props {
+  exerciseId: string;
   users: User[];
 }
 
-export const RepsTable = ({ users }: Props) => {
+export const RepsTable = ({ exerciseId, users }: Props) => {
   const sets = useSetStore((state) => state.sets);
-  const days: Set[][] = groupBy(sets, (set) =>
+  const filteredSets = sets.filter((set) => set.exerciseId === exerciseId);
+  const days: Set[][] = groupBy(filteredSets, (set) =>
     format(new Date(set.createdAt), "dd MMM")
   );
 
-  const noneToday = !sets.some((set) => isToday(new Date(set.createdAt)));
+  const noneToday = !filteredSets.some((set) =>
+    isToday(new Date(set.createdAt))
+  );
 
   return (
     <table className="w-full table-fixed border-collapse min-w-[950px]">
@@ -57,7 +61,7 @@ export const RepsTable = ({ users }: Props) => {
           <Td className="font-bold">Total</Td>
           {users.map((user) => (
             <Td className="font-bold" key={user.id}>
-              {sets
+              {filteredSets
                 .filter((set) => set.userId === user.id)
                 .map((set) => set.reps)
                 .reduce((a, b) => a + b, 0)}
