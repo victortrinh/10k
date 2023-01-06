@@ -3,6 +3,7 @@ import { ChangeEvent, useState } from "react";
 import { Exercise, User } from "../../../../models";
 import { UserDisplay } from "../../../UserDisplay";
 import { addSet } from "../../../../stores/setStore";
+import { Button, Spinner, TextInput } from "flowbite-react";
 
 interface Props {
   exercise: Exercise;
@@ -11,6 +12,7 @@ interface Props {
 
 export const AddRep = ({ exercise, user }: Props) => {
   const [reps, setReps] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const onChangeReps = (e: ChangeEvent<HTMLInputElement>) => {
     setReps(e.target.value);
@@ -33,11 +35,9 @@ export const AddRep = ({ exercise, user }: Props) => {
     request.send(JSON.stringify(params));
   };
 
-  const onAddSet = async (userId: string) => {
-    if (Number(reps) === 0) {
-      return;
-    }
+  const disableAddButton = Number(reps) === 0;
 
+  const onAddSet = async (userId: string) => {
     const body: Omit<Set, "id"> = {
       createdAt: new Date(),
       exerciseId: exercise.id,
@@ -45,11 +45,13 @@ export const AddRep = ({ exercise, user }: Props) => {
       userId,
     };
 
+    setIsLoading(true);
     const response = await fetch("/api/set", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
+    setIsLoading(false);
 
     const newSet = await response.json();
 
@@ -63,17 +65,26 @@ export const AddRep = ({ exercise, user }: Props) => {
       <td className="pr-3">
         <UserDisplay user={user} />
       </td>
-      <td>
-        <input
-          className="border border-slate-400 rounded px-2 py-1 mr-2"
+      <td className="flex items-center gap-2">
+        <TextInput
           onChange={onChangeReps}
           placeholder="Number of reps"
-          type="number"
           value={reps}
+          type="number"
+          disabled={isLoading}
         />
-        <button onClick={() => onAddSet(user.id)} type="submit">
+        <Button
+          disabled={disableAddButton}
+          gradientDuoTone="purpleToPink"
+          onClick={() => onAddSet(user.id)}
+        >
           Add
-        </button>
+          {isLoading && (
+            <div className="ml-3">
+              <Spinner size="sm" light={true} />{" "}
+            </div>
+          )}
+        </Button>
       </td>
     </tr>
   );

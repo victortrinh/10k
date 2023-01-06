@@ -16,6 +16,8 @@
     "@prisma/client": "^4.8.0",
     "classnames": "^2.3.2",
     "date-fns": "^2.29.3",
+    "flowbite": "^1.6.0",
+    "flowbite-react": "^0.3.7",
     "lodash": "^4.17.21",
     "next": "^13.1.1",
     "react": "^18.2.0",
