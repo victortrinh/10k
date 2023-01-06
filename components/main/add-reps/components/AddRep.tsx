@@ -9,6 +9,23 @@ interface Props {
   user: User;
 }
 
+const sendDiscordMessage = (name: string, reps: number, exercise: string) => {
+  const request = new XMLHttpRequest();
+  request.open(
+    "POST",
+    "https://discord.com/api/webhooks/1061005908655751300/bK_v8DFOwm9LYZ65NFjwJVuwnx6JROTaTSAFIz9fgdIDpJPoyD4cdJFBqe4t95vBfs0e"
+  );
+
+  request.setRequestHeader("Content-type", "application/json");
+
+  const params = {
+    username: "Stay Hard Beast",
+    content: `${name} just did ${reps} ${exercise}! Keep up you scrub!`,
+  };
+
+  request.send(JSON.stringify(params));
+};
+
 export const AddRep = ({ exercise, user }: Props) => {
   const [reps, setReps] = useState("");
 
@@ -17,6 +34,10 @@ export const AddRep = ({ exercise, user }: Props) => {
   };
 
   const onAddSet = async (userId: string) => {
+    if (Number(reps) === 0) {
+      return;
+    }
+
     const body: Omit<Set, "id"> = {
       createdAt: new Date(),
       exerciseId: exercise.id,
@@ -34,6 +55,7 @@ export const AddRep = ({ exercise, user }: Props) => {
 
     setReps("");
     addSet(newSet);
+    sendDiscordMessage(user.name, Number(reps), exercise.name);
   };
 
   return (
