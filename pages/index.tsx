@@ -2,9 +2,10 @@ import React from "react";
 import { GetStaticProps } from "next";
 import Layout from "../components/Layout";
 import prisma from "../lib/prisma";
-import { Container } from "../components/design-system";
+import { Container, Heading } from "../components/design-system";
 import { RepsTable } from "../components/main/RepsTable";
 import { Set, User } from "../models/models";
+import { AddReps } from "../components/main/add-reps/AddReps";
 
 export const getStaticProps: GetStaticProps = async () => {
   const users = await prisma.user.findMany();
@@ -33,8 +34,16 @@ const Main = ({ sets, users }: Props) => {
   return (
     <Layout>
       <Container>
-        <main className="overflow-auto">
-          <RepsTable sets={sets} users={users} />
+        <main>
+          <Heading as="h1">Add reps today</Heading>
+          <div className="flex flex-col gap-8">
+            <div className="overflow-x-auto max-w-full">
+              <AddReps users={users} />
+            </div>
+            <div className="overflow-x-auto max-w-full">
+              <RepsTable sets={sets} users={users} />
+            </div>
+          </div>
         </main>
       </Container>
     </Layout>
