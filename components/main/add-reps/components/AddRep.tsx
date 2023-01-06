@@ -19,7 +19,7 @@ export const AddRep = ({ user }: Props) => {
   const onAddSet = async (userId: string) => {
     const body: Omit<Set, "id"> = {
       createdAt: new Date(),
-      exerciseId: "clckv17s40004yl0gdezasjcp",
+      exerciseId: "clcjvxy5z0002ipgoujlq2yx0",
       reps: reps,
       userId,
     };
@@ -31,6 +31,7 @@ export const AddRep = ({ user }: Props) => {
     });
 
     setReps(0);
+    router.replace(router.asPath);
   };
 
   return (
