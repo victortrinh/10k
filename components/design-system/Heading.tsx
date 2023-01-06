@@ -9,19 +9,25 @@ export const Heading = ({ as: Component, children }: Props) => {
   const className = useMemo(() => {
     switch (Component) {
       case "h1":
-        return "text-5xl";
-      case "h2":
         return "text-4xl";
-      case "h3":
+      case "h2":
         return "text-3xl";
-      case "h4":
+      case "h3":
         return "text-2xl";
-      case "h5":
+      case "h4":
         return "text-xl";
+      case "h5":
+        return "text-lg";
       default:
-        return "text-5xl";
+        return "text-4xl";
     }
   }, [Component]);
 
-  return <Component className={`${className} mb-4`}>{children}</Component>;
+  return (
+    <Component
+      className={`${className} mb-4 text-white font-sans font-semibold`}
+    >
+      {children}
+    </Component>
+  );
 };

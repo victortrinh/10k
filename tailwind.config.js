@@ -8,7 +8,11 @@ module.exports = {
     container: {
       center: true,
     },
-    extend: {},
+    extend: {
+      colors: {
+        background: "rgb(17 24 39)",
+      },
+    },
   },
   plugins: [],
-}
+};

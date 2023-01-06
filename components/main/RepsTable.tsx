@@ -51,7 +51,7 @@ export const RepsTable = ({ exerciseId, users }: Props) => {
         ))}
         {noneToday && (
           <tr>
-            <Td className="font-bold">{format(new Date(), "MMM dd")}</Td>
+            <Td className="font-bold">{format(new Date(), "MMM d")}</Td>
             {users.map((user) => (
               <Td key={user.id}>0</Td>
             ))}
