@@ -5,7 +5,7 @@ type Props = {
 };
 
 const Layout = ({ children }: Props) => (
-  <div className="pt-12 min-h-screen bg-background">
+  <div className="py-12 min-h-screen dark:bg-background">
     <div>{children}</div>
   </div>
 );

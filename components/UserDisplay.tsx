@@ -18,7 +18,7 @@ export const UserDisplay = ({ user, showName, centered }: Props) => {
       )}
     >
       <img
-        className={`w-10 h-10 p-1 rounded-full ring-2 ring-[${user.color}]`}
+        className={`w-10 h-10 p-1 rounded-full ring-2`}
         src={user.imageUrl}
         alt={user.name}
       />
