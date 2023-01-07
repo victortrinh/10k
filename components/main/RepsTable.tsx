@@ -1,6 +1,6 @@
 import { format, isToday } from "date-fns";
 import { Set, User } from "../../models/models";
-import { UserDisplay } from "../UserDisplay";
+import { Ranking, UserDisplay } from "../UserDisplay";
 import { groupBy } from "lodash";
 import { ReactNode } from "react";
 import { useSetStore } from "../../stores/setStore";
@@ -21,22 +21,58 @@ export const RepsTable = ({ exerciseId, users }: Props) => {
 
     return set.exerciseId === exerciseId;
   });
+
   const days: Set[][] = groupBy(filteredSets, (set) =>
     format(new Date(set.createdAt), "dd MMM")
   );
+
+  const setsByUser: Set[][] = groupBy(filteredSets, (set) => set.userId);
+  const totalRepsByUser = Object.values(setsByUser)
+    .map((setByUser) => ({
+      ...setByUser[0],
+      reps: setByUser.map((set) => set.reps).reduce((a, b) => a + b, 0),
+    }))
+    .sort((a, b) => b.reps - a.reps);
+  const totalRankingByUser = totalRepsByUser.map((set) => set.userId);
 
   const noneToday = !filteredSets.some((set) =>
     isToday(new Date(set.createdAt))
   );
 
+  function totalRepsByUserId(userId: string) {
+    return filteredSets
+      .filter((set) => set.userId === userId)
+      .map((set) => set.reps)
+      .reduce((a, b) => a + b, 0);
+  }
+
+  function getTotalRankingByUserId(userId: string): Ranking | undefined {
+    const index = totalRankingByUser.findIndex((u) => u === userId);
+
+    switch (index) {
+      case 0:
+        return "gold";
+      case 1:
+        return "silver";
+      case 2:
+        return "bronze";
+      default:
+        return undefined;
+    }
+  }
+
   return (
     <div className="overflow-x-auto max-w-full">
-      <Table className="min-w-[800px] w-full">
+      <Table className="min-w-[900px] w-full">
         <Table.Head>
           <Table.HeadCell>Day</Table.HeadCell>
           {users.map((user) => (
             <Table.HeadCell key={user.id}>
-              <UserDisplay user={user} centered />
+              <UserDisplay
+                rank={getTotalRankingByUserId(user.id)}
+                user={user}
+                centered
+              />
             </Table.HeadCell>
           ))}
         </Table.Head>
@@ -70,10 +106,7 @@ export const RepsTable = ({ exerciseId, users }: Props) => {
             <MainTableCell>Total</MainTableCell>
             {users.map((user) => (
               <MainTableCell centered key={user.id}>
-                {filteredSets
-                  .filter((set) => set.userId === user.id)
-                  .map((set) => set.reps)
-                  .reduce((a, b) => a + b, 0)}
+                {totalRepsByUserId(user.id)}
               </MainTableCell>
             ))}
           </TableRow>
