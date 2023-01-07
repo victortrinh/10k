@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useMemo, useState } from "react";
 import { GetStaticProps } from "next";
 import Layout from "../components/Layout";
 import prisma from "../lib/prisma";
@@ -12,6 +12,7 @@ import classNames from "classnames";
 import { TabList } from "../components/design-system/tabs/tab-list/TabList";
 import { Tab } from "../components/design-system/tabs/tab-list/components/Tab";
 import { TabPanel } from "../components/design-system/tabs/TabPanel";
+import { useRouter } from "next/router";
 
 export const getStaticProps: GetStaticProps = async () => {
   const users = await prisma.user.findMany({
@@ -46,16 +47,32 @@ interface Props {
 }
 
 const Main = ({ exercises, sets, users }: Props) => {
+  const router = useRouter();
+  const { tab } = router.query;
+
   useEffect(() => {
     initializeSetStore(sets);
   }, []);
+
+  const selectedIndex = useMemo(() => {
+    return exercises.findIndex((exercise) => exercise.name === tab);
+  }, [tab]);
+
+  const onChangeTab = (index: number) => {
+    router.replace({
+      query: { tab: exercises[index].name },
+    });
+  };
 
   return (
     <Layout>
       <Container>
         <main>
           <Heading as="h1">Add reps</Heading>
-          <HeadlessTab.Group>
+          <HeadlessTab.Group
+            selectedIndex={selectedIndex}
+            onChange={onChangeTab}
+          >
             <TabList>
               {exercises.map((exercise) => (
                 <Tab key={exercise.id}>{exercise.name}</Tab>
