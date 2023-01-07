@@ -55,12 +55,16 @@ const Main = ({ exercises, sets, users }: Props) => {
   }, []);
 
   const selectedIndex = useMemo(() => {
+    if (tab === "total") {
+      return 3;
+    }
+
     return exercises.findIndex((exercise) => exercise.name === tab);
   }, [tab]);
 
   const onChangeTab = (index: number) => {
     router.replace({
-      query: { tab: exercises[index].name },
+      query: { tab: exercises[index]?.name ?? "total" },
     });
   };
 
@@ -77,16 +81,24 @@ const Main = ({ exercises, sets, users }: Props) => {
               {exercises.map((exercise) => (
                 <Tab key={exercise.id}>{exercise.name}</Tab>
               ))}
+              <Tab key="total">Total</Tab>
             </TabList>
             <HeadlessTab.Panels className="mt-2">
               {exercises.map((exercise) => (
                 <TabPanel key={exercise.id}>
-                  <div key={exercise.id} className="flex flex-col gap-8">
+                  <Heading as="h2">{exercise.name}</Heading>
+                  <div className="flex flex-col gap-8">
                     <AddReps exercise={exercise} users={users} />
                     <RepsTable exerciseId={exercise.id} users={users} />
                   </div>
                 </TabPanel>
               ))}
+              <TabPanel key="total">
+                <Heading as="h2">Total</Heading>
+                <div className="flex flex-col gap-8">
+                  <RepsTable users={users} />
+                </div>
+              </TabPanel>
             </HeadlessTab.Panels>
           </HeadlessTab.Group>
         </main>

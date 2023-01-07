@@ -8,13 +8,19 @@ import { Table } from "flowbite-react";
 import classNames from "classnames";
 
 interface Props {
-  exerciseId: string;
+  exerciseId?: string;
   users: User[];
 }
 
 export const RepsTable = ({ exerciseId, users }: Props) => {
   const sets = useSetStore((state) => state.sets);
-  const filteredSets = sets.filter((set) => set.exerciseId === exerciseId);
+  const filteredSets = sets.filter((set) => {
+    if (!exerciseId) {
+      return true;
+    }
+
+    return set.exerciseId === exerciseId;
+  });
   const days: Set[][] = groupBy(filteredSets, (set) =>
     format(new Date(set.createdAt), "dd MMM")
   );

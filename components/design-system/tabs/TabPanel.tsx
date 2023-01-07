@@ -9,6 +9,6 @@ interface Props {
 
 export const TabPanel = ({ children }: Props) => (
   <Tab.Panel>
-    <Card>{children}</Card>
+    <Card className="p-4">{children}</Card>
   </Tab.Panel>
 );
