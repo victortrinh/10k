@@ -3,7 +3,7 @@ import { ChangeEvent, useState } from "react";
 import { Exercise, User } from "../../../../models";
 import { UserDisplay } from "../../../UserDisplay";
 import { addSet } from "../../../../stores/setStore";
-import { Button, Spinner, TextInput } from "flowbite-react";
+import { Button, Spinner, Table, TextInput } from "flowbite-react";
 
 interface Props {
   exercise: Exercise;
@@ -61,31 +61,29 @@ export const AddRep = ({ exercise, user }: Props) => {
   };
 
   return (
-    <tr>
-      <td className="pr-3">
-        <UserDisplay user={user} />
-      </td>
-      <td className="flex items-center gap-2">
-        <TextInput
-          onChange={onChangeReps}
-          placeholder="Number of reps"
-          value={reps}
-          type="number"
-          disabled={isLoading}
-        />
-        <Button
-          disabled={disableAddButton}
-          gradientDuoTone="purpleToPink"
-          onClick={() => onAddSet(user.id)}
-        >
-          Add
-          {isLoading && (
-            <div className="ml-3">
-              <Spinner size="sm" light={true} />{" "}
-            </div>
-          )}
-        </Button>
-      </td>
-    </tr>
+    <div className="flex items-center gap-3">
+      <div className="w-36">
+        <UserDisplay user={user} showName />
+      </div>
+      <TextInput
+        onChange={onChangeReps}
+        placeholder="# of reps"
+        value={reps}
+        type="number"
+        disabled={isLoading}
+      />
+      <Button
+        disabled={disableAddButton}
+        gradientDuoTone="purpleToPink"
+        onClick={() => onAddSet(user.id)}
+      >
+        Add
+        {isLoading && (
+          <div className="ml-3">
+            <Spinner size="sm" light={true} />{" "}
+          </div>
+        )}
+      </Button>
+    </div>
   );
 };

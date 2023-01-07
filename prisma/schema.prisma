@@ -30,5 +30,6 @@ model User {
   id       String  @id @default(cuid())
   name     String
   imageUrl String?
+  color    String?
   sets     Set[]
 }

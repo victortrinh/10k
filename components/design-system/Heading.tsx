@@ -25,7 +25,7 @@ export const Heading = ({ as: Component, children }: Props) => {
 
   return (
     <Component
-      className={`${className} mb-4 text-white font-sans font-semibold`}
+      className={`${className} mb-4 dark:text-white font-sans font-semibold`}
     >
       {children}
     </Component>

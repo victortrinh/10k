@@ -4,6 +4,8 @@ import { UserDisplay } from "../UserDisplay";
 import { groupBy } from "lodash";
 import { ReactNode } from "react";
 import { useSetStore } from "../../stores/setStore";
+import { Table } from "flowbite-react";
+import classNames from "classnames";
 
 interface Props {
   exerciseId: string;
@@ -22,67 +24,77 @@ export const RepsTable = ({ exerciseId, users }: Props) => {
   );
 
   return (
-    <table className="w-full table-fixed border-collapse min-w-[950px]">
-      <thead>
-        <tr>
-          <th />
+    <div className="overflow-x-auto max-w-full">
+      <Table className="min-w-[800px] w-full">
+        <Table.Head>
+          <Table.HeadCell>Day</Table.HeadCell>
           {users.map((user) => (
-            <Th key={user.id}>
-              <UserDisplay user={user} />
-            </Th>
+            <Table.HeadCell key={user.id}>
+              <UserDisplay user={user} centered />
+            </Table.HeadCell>
           ))}
-        </tr>
-      </thead>
-      <tbody className="border border-slate-200">
-        {Object.values(days).map((day, index) => (
-          <tr key={index}>
-            <Td className="font-bold">
-              {format(new Date(day[0].createdAt), "MMM d")}
-            </Td>
+        </Table.Head>
+        <Table.Body className="divide-y">
+          {Object.values(days).map((day, index) => (
+            <TableRow key={index}>
+              <MainTableCell>
+                {format(new Date(day[0].createdAt), "MMM d")}
+              </MainTableCell>
+              {users.map((user) => (
+                <Table.Cell className="text-center" key={user.id}>
+                  {day
+                    .filter((set) => set.userId === user.id)
+                    .map((set) => set.reps)
+                    .reduce((a, b) => a + b, 0)}
+                </Table.Cell>
+              ))}
+            </TableRow>
+          ))}
+          {noneToday && (
+            <TableRow>
+              <MainTableCell>{format(new Date(), "MMM d")}</MainTableCell>
+              {users.map((user) => (
+                <Table.Cell className="text-center" key={user.id}>
+                  0
+                </Table.Cell>
+              ))}
+            </TableRow>
+          )}
+          <TableRow>
+            <MainTableCell>Total</MainTableCell>
             {users.map((user) => (
-              <Td key={user.id}>
-                {day
+              <MainTableCell centered key={user.id}>
+                {filteredSets
                   .filter((set) => set.userId === user.id)
                   .map((set) => set.reps)
                   .reduce((a, b) => a + b, 0)}
-              </Td>
+              </MainTableCell>
             ))}
-          </tr>
-        ))}
-        {noneToday && (
-          <tr>
-            <Td className="font-bold">{format(new Date(), "MMM d")}</Td>
-            {users.map((user) => (
-              <Td key={user.id}>0</Td>
-            ))}
-          </tr>
-        )}
-        <tr>
-          <Td className="font-bold">Total</Td>
-          {users.map((user) => (
-            <Td className="font-bold" key={user.id}>
-              {filteredSets
-                .filter((set) => set.userId === user.id)
-                .map((set) => set.reps)
-                .reduce((a, b) => a + b, 0)}
-            </Td>
-          ))}
-        </tr>
-      </tbody>
-    </table>
+          </TableRow>
+        </Table.Body>
+      </Table>
+    </div>
   );
 };
 
 interface DataProps {
-  className?: string;
+  centered?: boolean;
   children: ReactNode;
 }
 
-const Th = ({ children }: DataProps) => (
-  <th className="px-3 py-2 bg-slate-200 ">{children}</th>
-);
-const Td = ({ className, children }: DataProps) => (
-  <td className={`${className} border-b border-slate-200 px-3 py-2`}>
+const TableRow = ({ children }: DataProps) => (
+  <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
     {children}
-  </td>
+  </Table.Row>
+);
+
+const MainTableCell = ({ centered, children }: DataProps) => (
+  <Table.Cell
+    className={classNames(
+      "font-bold whitespace-nowrap text-gray-900 dark:text-white",
+      centered && "text-center"
+    )}
+  >
+    {children}
+  </Table.Cell>
 );

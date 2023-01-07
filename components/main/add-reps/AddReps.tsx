@@ -1,3 +1,4 @@
+import { Table } from "flowbite-react";
 import { Exercise, User } from "../../../models";
 import { AddRep } from "./components/AddRep";
 
@@ -7,11 +8,9 @@ interface Props {
 }
 
 export const AddReps = ({ exercise, users }: Props) => (
-  <table className="table-fixed">
-    <tbody>
-      {users.map((user) => (
-        <AddRep key={user.id} user={user} exercise={exercise} />
-      ))}
-    </tbody>
-  </table>
+  <div className="flex flex-col gap-2">
+    {users.map((user) => (
+      <AddRep key={user.id} user={user} exercise={exercise} />
+    ))}
+  </div>
 );
