@@ -67,7 +67,7 @@ export const AddRep = ({ exercise, user }: Props) => {
       </div>
       <TextInput
         onChange={onChangeReps}
-        placeholder="# of reps"
+        placeholder={`# of ${exercise.name}`}
         value={reps}
         type="number"
         disabled={isLoading}
