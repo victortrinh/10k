@@ -59,7 +59,9 @@ export const UserDisplay = ({ rank, user, showName, centered }: Props) => {
       </div>
 
       {showName && (
-        <div className="font-medium dark:text-white">{user.name}</div>
+        <div className="hidden md:block font-medium dark:text-white">
+          {user.name}
+        </div>
       )}
     </div>
   );

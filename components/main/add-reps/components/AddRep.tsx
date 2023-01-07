@@ -62,12 +62,13 @@ export const AddRep = ({ exercise, user }: Props) => {
 
   return (
     <div className="flex items-center gap-3">
-      <div className="w-36">
+      <div className="w-10 md:w-36">
         <UserDisplay user={user} showName />
       </div>
       <TextInput
+        className="w-28"
         onChange={onChangeReps}
-        placeholder={`# of ${exercise.name}`}
+        placeholder={`# of ${exercise.name.toLowerCase()}`}
         value={reps}
         type="number"
         disabled={isLoading}
