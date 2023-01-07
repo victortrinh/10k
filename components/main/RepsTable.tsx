@@ -111,7 +111,7 @@ export const RepsTable = ({ exerciseId, users }: Props) => {
             <MainTableCell>Total</MainTableCell>
             {users.map((user) => (
               <MainTableCell centered key={user.id}>
-                {totalRepsByUserId(user.id)} {getRanking(user.id, sets)}
+                {totalRepsByUserId(user.id)} {getRanking(user.id, filteredSets)}
               </MainTableCell>
             ))}
           </TableRow>
