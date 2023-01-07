@@ -8,7 +8,6 @@ import { Exercise, Set, User } from "../models/models";
 import { AddReps } from "../components/main/add-reps/AddReps";
 import { initializeSetStore } from "../stores/setStore";
 import { Tab as HeadlessTab } from "@headlessui/react";
-import classNames from "classnames";
 import { TabList } from "../components/design-system/tabs/tab-list/TabList";
 import { Tab } from "../components/design-system/tabs/tab-list/components/Tab";
 import { TabPanel } from "../components/design-system/tabs/TabPanel";
@@ -23,12 +22,23 @@ export const getStaticProps: GetStaticProps = async () => {
     ],
   });
   const sets = await prisma.set.findMany({
+    orderBy: [
+      {
+        createdAt: "desc",
+      },
+    ],
     include: {
       user: true,
       exercise: true,
     },
   });
-  const exercises = await prisma.exercise.findMany();
+  const exercises = await prisma.exercise.findMany({
+    orderBy: [
+      {
+        name: "asc",
+      },
+    ],
+  });
 
   return {
     props: {
@@ -83,10 +93,9 @@ const Main = ({ exercises, sets, users }: Props) => {
               ))}
               <Tab key="total">Total</Tab>
             </TabList>
-            <HeadlessTab.Panels className="mt-2">
+            <HeadlessTab.Panels className="mt-4">
               {exercises.map((exercise) => (
                 <TabPanel key={exercise.id}>
-                  <Heading as="h2">{exercise.name}</Heading>
                   <div className="flex flex-col gap-8">
                     <AddReps exercise={exercise} users={users} />
                     <RepsTable exerciseId={exercise.id} users={users} />
@@ -94,7 +103,6 @@ const Main = ({ exercises, sets, users }: Props) => {
                 </TabPanel>
               ))}
               <TabPanel key="total">
-                <Heading as="h2">Total</Heading>
                 <div className="flex flex-col gap-8">
                   <RepsTable users={users} />
                 </div>

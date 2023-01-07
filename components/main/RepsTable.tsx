@@ -61,6 +61,36 @@ export const RepsTable = ({ exerciseId, users }: Props) => {
     }
   }
 
+  function totalForDayForUser(userId: string, sets: Set[]) {
+    return sets
+      .filter((set) => set.userId === userId)
+      .map((set) => set.reps)
+      .reduce((a, b) => a + b, 0);
+  }
+
+  function getRanking(userId: string, sets: Set[]) {
+    const setsPerUserForDay: Set[][] = groupBy(sets, (set) => set.userId);
+    const sortedSets = Object.values(setsPerUserForDay)
+      .map((setByUser) => ({
+        userId: setByUser[0].userId,
+        reps: setByUser.map((set) => set.reps).reduce((a, b) => a + b, 0),
+      }))
+      .sort((a, b) => b.reps - a.reps);
+
+    const index = sortedSets.findIndex((set) => set.userId === userId);
+
+    switch (index) {
+      case 0:
+        return "🥇";
+      case 1:
+        return "🥈";
+      case 2:
+        return "🥉";
+      default:
+        return undefined;
+    }
+  }
+
   return (
     <div className="overflow-x-auto max-w-full">
       <Table className="min-w-[900px] w-full">
@@ -77,21 +107,14 @@ export const RepsTable = ({ exerciseId, users }: Props) => {
           ))}
         </Table.Head>
         <Table.Body className="divide-y">
-          {Object.values(days).map((day, index) => (
-            <TableRow key={index}>
-              <MainTableCell>
-                {format(new Date(day[0].createdAt), "MMM d")}
+          <TableRow>
+            <MainTableCell>Total</MainTableCell>
+            {users.map((user) => (
+              <MainTableCell centered key={user.id}>
+                {totalRepsByUserId(user.id)} {getRanking(user.id, sets)}
               </MainTableCell>
-              {users.map((user) => (
-                <Table.Cell className="text-center" key={user.id}>
-                  {day
-                    .filter((set) => set.userId === user.id)
-                    .map((set) => set.reps)
-                    .reduce((a, b) => a + b, 0)}
-                </Table.Cell>
-              ))}
-            </TableRow>
-          ))}
+            ))}
+          </TableRow>
           {noneToday && (
             <TableRow>
               <MainTableCell>{format(new Date(), "MMM d")}</MainTableCell>
@@ -102,14 +125,24 @@ export const RepsTable = ({ exerciseId, users }: Props) => {
               ))}
             </TableRow>
           )}
-          <TableRow>
-            <MainTableCell>Total</MainTableCell>
-            {users.map((user) => (
-              <MainTableCell centered key={user.id}>
-                {totalRepsByUserId(user.id)}
+          {Object.values(days).map((day, index) => (
+            <TableRow key={index}>
+              <MainTableCell>
+                {format(new Date(day[0].createdAt), "MMM d")}
               </MainTableCell>
-            ))}
-          </TableRow>
+              {users.map((user) => (
+                <Table.Cell
+                  className={classNames(
+                    "text-center",
+                    getRanking(user.id, day) && "text-white"
+                  )}
+                  key={user.id}
+                >
+                  {totalForDayForUser(user.id, day)} {getRanking(user.id, day)}
+                </Table.Cell>
+              ))}
+            </TableRow>
+          ))}
         </Table.Body>
       </Table>
     </div>
