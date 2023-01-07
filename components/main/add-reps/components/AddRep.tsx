@@ -3,7 +3,8 @@ import { ChangeEvent, useState } from "react";
 import { Exercise, User } from "../../../../models";
 import { UserDisplay } from "../../../UserDisplay";
 import { addSet } from "../../../../stores/setStore";
-import { Button, Spinner, Table, TextInput } from "flowbite-react";
+import { Button, Spinner, Table, TextInput, Toast } from "flowbite-react";
+import { toast } from "react-toastify";
 
 interface Props {
   exercise: Exercise;
@@ -51,12 +52,13 @@ export const AddRep = ({ exercise, user }: Props) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
-    setIsLoading(false);
 
     const newSet = await response.json();
 
-    setReps("");
     addSet(newSet);
+    toast(`🔥 Successfully added ${reps} of ${exercise.name}`);
+    setIsLoading(false);
+    setReps("");
     sendDiscordMessage(user.name, Number(reps), exercise.name);
   };
 
