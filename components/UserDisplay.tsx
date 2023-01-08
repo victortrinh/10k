@@ -18,17 +18,17 @@ export const UserDisplay = ({ rank, user, showName, centered }: Props) => {
     switch (rank) {
       case "gold":
         return {
-          color: "ring-yellow-400",
+          color: "!ring-yellow-400",
           icon: "🥇",
         };
       case "silver":
         return {
-          color: "ring-gray-300",
+          color: "!ring-gray-300",
           icon: "🥈",
         };
       case "bronze":
         return {
-          color: "ring-amber-800",
+          color: "!ring-yellow-600",
           icon: "🥉",
         };
       default:
@@ -45,13 +45,16 @@ export const UserDisplay = ({ rank, user, showName, centered }: Props) => {
     >
       <div className="relative w-fit">
         <img
-          className={`w-10 h-10 p-1 rounded-full ring-2 ${custom?.color}`}
+          className={classNames(
+            `w-10 h-10 p-1 rounded-full ring-2 ring-${user.color}`,
+            custom?.color
+          )}
           src={user.imageUrl}
           alt={user.name}
         />
         {custom && (
           <div
-            className={`absolute -top-1 -right-1 rounded-full ring-2 w-4 h-4 ${custom?.color} flex items-center justify-center bg-white dark:bg-background`}
+            className={`absolute -top-1 -right-1 rounded-full ring-2 w-4 h-4 ${custom.color} flex items-center justify-center bg-white dark:bg-background`}
           >
             {custom.icon}
           </div>

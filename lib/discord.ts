@@ -1,14 +1,17 @@
 import { sample } from "lodash";
 
 const toxicMessages = [
-  "Keep up you scrubs! 🥇",
-  "EZ CLAP! 🙏",
-  "Maybe you guys should try harder. 💪",
+  "Keep up you scrubs 🥇",
+  "EZ CLAP 🙏",
+  "Maybe you guys should try harder 💪",
   "Awwwwww yeaaaa... 💦",
   "HEEIIIIINN? 🐶",
-  "STIII, J'AI PO D'VIE!! 😱",
+  "STIII, J'AI PO D'VIE 😱!!",
   "ONIIII-CHANNNNNNNN 🥵",
   "J'SUIS TROP BON POUR VOUSSS!!",
+  "KAAACHOOOOWWW 👉😎👉 🏎️",
+  "BLEEHHHHH 🤙🤪🤙",
+  "Stay HARD 8==D",
 ];
 
 export function sendDiscordMessage(

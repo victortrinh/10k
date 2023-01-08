@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  @apply bg-white dark:bg-background;
+  @apply bg-slate-100 dark:bg-background;
 }
 
 input::-webkit-outer-spin-button,

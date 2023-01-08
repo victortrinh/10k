@@ -5,6 +5,18 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
+  safelist: [
+    "ring-red-200",
+    "ring-orange-200",
+    "ring-lime-200",
+    "ring-indigo-200",
+    "ring-purple-200",
+    "ring-pink-200",
+    "ring-rose-200",
+    "ring-cyan-200",
+    "ring-teal-200",
+    "ring-amber-200",
+  ],
   plugins: [require("flowbite/plugin")],
   theme: {
     container: {
