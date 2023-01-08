@@ -21,6 +21,14 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         name: "asc",
       },
     ],
+    include: {
+      sets: {
+        select: {
+          reps: true,
+          exercise: true,
+        },
+      },
+    },
   });
 
   const sets = await prisma.set.findMany({

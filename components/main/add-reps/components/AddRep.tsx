@@ -48,7 +48,7 @@ export const AddRep = ({ exercise, user }: Props) => {
 
   return (
     <div className="flex items-center gap-3">
-      <div className="w-10 md:w-36">
+      <div className="w-10 md:w-32">
         <UserDisplay user={user} showName />
       </div>
       <TextInput

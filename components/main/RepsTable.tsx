@@ -57,12 +57,28 @@ export const RepsTable = ({ exerciseId, users }: Props) => {
     }
   }
 
+  const sortedUsers = users
+    .map((user) => ({
+      ...user,
+      reps: user.sets
+        .filter((set) => {
+          if (!exerciseId) {
+            return true;
+          }
+
+          return set.exercise.id === exerciseId;
+        })
+        .flatMap((set) => set.reps)
+        .reduce((a, b) => a + b, 0),
+    }))
+    .sort((a, b) => b.reps - a.reps);
+
   return (
     <div className="overflow-x-auto max-w-full">
       <Table className="min-w-[900px] w-full">
         <Table.Head>
           <Table.HeadCell>Day</Table.HeadCell>
-          {users.map((user) => (
+          {sortedUsers.map((user) => (
             <Table.HeadCell key={user.id}>
               <UserDisplay
                 rank={getTotalRankingByUserId(user.id)}
@@ -73,14 +89,14 @@ export const RepsTable = ({ exerciseId, users }: Props) => {
           ))}
         </Table.Head>
         <Table.Body className="divide-y">
-          <TotalRow sets={filteredSets} users={users} />
-          {noneToday && <NoneTodayRow users={users} />}
+          <TotalRow sets={filteredSets} users={sortedUsers} />
+          {noneToday && <NoneTodayRow users={sortedUsers} />}
           {Object.values(days).map((day, index) => (
             <TableRow key={index}>
               <MainTableCell>
                 {format(new Date(day[0].createdAt), "MMM d")}
               </MainTableCell>
-              {users.map((user) => (
+              {sortedUsers.map((user) => (
                 <RepsTableDayRow key={user.id} userId={user.id} sets={day} />
               ))}
             </TableRow>
