@@ -16,6 +16,7 @@ module.exports = {
     "ring-cyan-200",
     "ring-teal-200",
     "ring-amber-200",
+    "ring-violet-200",
     "ring-red-500",
     "ring-orange-500",
     "ring-lime-500",
@@ -26,6 +27,7 @@ module.exports = {
     "ring-cyan-500",
     "ring-teal-500",
     "ring-amber-500",
+    "ring-violet-500",
   ],
   plugins: [require("flowbite/plugin")],
   theme: {
