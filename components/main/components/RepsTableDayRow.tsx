@@ -39,7 +39,12 @@ export const RepsTableDayRow = ({ userId, sets }: Props) => {
   }, [sets, userId]);
 
   return (
-    <Table.Cell className={classNames("text-center", ranking && "text-white")}>
+    <Table.Cell
+      className={classNames(
+        "text-center",
+        ranking && "text-black dark:text-white"
+      )}
+    >
       {totalForDayForUser} {ranking}
     </Table.Cell>
   );
