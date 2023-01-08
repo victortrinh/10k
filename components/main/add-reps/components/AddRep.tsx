@@ -3,8 +3,9 @@ import { ChangeEvent, useState } from "react";
 import { Exercise, User } from "../../../../models";
 import { UserDisplay } from "../../../UserDisplay";
 import { addSet } from "../../../../stores/setStore";
-import { Button, Spinner, Table, TextInput, Toast } from "flowbite-react";
+import { Button, Spinner, TextInput } from "flowbite-react";
 import { toast } from "react-toastify";
+import { sendDiscordMessage } from "../../../../lib/discord";
 
 interface Props {
   exercise: Exercise;
@@ -17,23 +18,6 @@ export const AddRep = ({ exercise, user }: Props) => {
 
   const onChangeReps = (e: ChangeEvent<HTMLInputElement>) => {
     setReps(e.target.value);
-  };
-
-  const sendDiscordMessage = (name: string, reps: number, exercise: string) => {
-    const request = new XMLHttpRequest();
-    request.open(
-      "POST",
-      `https://discord.com/api/webhooks/${process.env.DISCORD_USERNAME}/${process.env.DISCORD_SECRET}`
-    );
-
-    request.setRequestHeader("Content-type", "application/json");
-
-    const params = {
-      username: "Stay Hard Beast",
-      content: `${name} just did ${reps} ${exercise}! Keep up you scrub!`,
-    };
-
-    request.send(JSON.stringify(params));
   };
 
   const disableAddButton = Number(reps) === 0;
