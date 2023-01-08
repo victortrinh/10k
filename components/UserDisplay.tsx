@@ -46,7 +46,7 @@ export const UserDisplay = ({ rank, user, showName, centered }: Props) => {
       <div className="relative w-fit">
         <img
           className={classNames(
-            `w-10 h-10 p-1 rounded-full ring-2 ring-${user.color}`,
+            `w-10 h-10 p-1 rounded-full ring-2 ring-${user.color}-500 dark:ring-${user.color}-200`,
             custom?.color
           )}
           src={user.imageUrl}
