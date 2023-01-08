@@ -6,6 +6,11 @@ import { ReactNode } from "react";
 import { useSetStore } from "../../stores/setStore";
 import { Table } from "flowbite-react";
 import classNames from "classnames";
+import { RepsTableDayRow } from "./components/RepsTableDayRow";
+import { TableRow } from "./components/TableRow";
+import { MainTableCell } from "./components/MainTableCell";
+import { NoneTodayRow } from "./components/NoneTodayRow";
+import { TotalRow } from "./components/TotalRow";
 
 interface Props {
   exerciseId?: string;
@@ -39,13 +44,6 @@ export const RepsTable = ({ exerciseId, users }: Props) => {
     isToday(new Date(set.createdAt))
   );
 
-  function totalRepsByUserId(userId: string) {
-    return filteredSets
-      .filter((set) => set.userId === userId)
-      .map((set) => set.reps)
-      .reduce((a, b) => a + b, 0);
-  }
-
   function getTotalRankingByUserId(userId: string): Ranking | undefined {
     const index = totalRankingByUser.findIndex((u) => u === userId);
 
@@ -56,36 +54,6 @@ export const RepsTable = ({ exerciseId, users }: Props) => {
         return "silver";
       case 2:
         return "bronze";
-      default:
-        return undefined;
-    }
-  }
-
-  function totalForDayForUser(userId: string, sets: Set[]) {
-    return sets
-      .filter((set) => set.userId === userId)
-      .map((set) => set.reps)
-      .reduce((a, b) => a + b, 0);
-  }
-
-  function getRanking(userId: string, sets: Set[]) {
-    const setsPerUserForDay: Set[][] = groupBy(sets, (set) => set.userId);
-    const sortedSets = Object.values(setsPerUserForDay)
-      .map((setByUser) => ({
-        userId: setByUser[0].userId,
-        reps: setByUser.map((set) => set.reps).reduce((a, b) => a + b, 0),
-      }))
-      .sort((a, b) => b.reps - a.reps);
-
-    const index = sortedSets.findIndex((set) => set.userId === userId);
-
-    switch (index) {
-      case 0:
-        return "🥇";
-      case 1:
-        return "🥈";
-      case 2:
-        return "🥉";
       default:
         return undefined;
     }
@@ -107,39 +75,15 @@ export const RepsTable = ({ exerciseId, users }: Props) => {
           ))}
         </Table.Head>
         <Table.Body className="divide-y">
-          <TableRow>
-            <MainTableCell>Total</MainTableCell>
-            {users.map((user) => (
-              <MainTableCell centered key={user.id}>
-                {totalRepsByUserId(user.id)} {getRanking(user.id, filteredSets)}
-              </MainTableCell>
-            ))}
-          </TableRow>
-          {noneToday && (
-            <TableRow>
-              <MainTableCell>{format(new Date(), "MMM d")}</MainTableCell>
-              {users.map((user) => (
-                <Table.Cell className="text-center" key={user.id}>
-                  0
-                </Table.Cell>
-              ))}
-            </TableRow>
-          )}
+          <TotalRow sets={filteredSets} users={users} />
+          {noneToday && <NoneTodayRow users={users} />}
           {Object.values(days).map((day, index) => (
             <TableRow key={index}>
               <MainTableCell>
                 {format(new Date(day[0].createdAt), "MMM d")}
               </MainTableCell>
               {users.map((user) => (
-                <Table.Cell
-                  className={classNames(
-                    "text-center",
-                    getRanking(user.id, day) && "text-white"
-                  )}
-                  key={user.id}
-                >
-                  {totalForDayForUser(user.id, day)} {getRanking(user.id, day)}
-                </Table.Cell>
+                <RepsTableDayRow key={user.id} userId={user.id} sets={day} />
               ))}
             </TableRow>
           ))}
@@ -148,25 +92,3 @@ export const RepsTable = ({ exerciseId, users }: Props) => {
     </div>
   );
 };
-
-interface DataProps {
-  centered?: boolean;
-  children: ReactNode;
-}
-
-const TableRow = ({ children }: DataProps) => (
-  <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-    {children}
-  </Table.Row>
-);
-
-const MainTableCell = ({ centered, children }: DataProps) => (
-  <Table.Cell
-    className={classNames(
-      "font-bold whitespace-nowrap text-gray-900 dark:text-white",
-      centered && "text-center"
-    )}
-  >
-    {children}
-  </Table.Cell>
-);
