@@ -75,7 +75,7 @@ export const RepsTable = ({ exerciseId, users }: Props) => {
 
   return (
     <div className="overflow-x-auto max-w-full">
-      <Table className="min-w-[1000px] w-full">
+      <Table className="min-w-[1100px] w-full">
         <Table.Head className="bg-slate-200">
           <Table.HeadCell>Day</Table.HeadCell>
           {sortedUsers.map((user) => (
