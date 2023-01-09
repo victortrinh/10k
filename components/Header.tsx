@@ -10,12 +10,26 @@ const Header: React.FC = () => {
   const logoSize = 40;
 
   let logo = (
-    <Image src="/images/logo-white.png" alt="10k" width={40} height={40} />
+    <Image
+      className="w-10 h-auto"
+      src="/images/logo-white.png"
+      alt="10k"
+      width={logoSize}
+      height={logoSize}
+      priority
+    />
   );
 
   if (theme === "light") {
     logo = (
-      <Image src="/images/logo-black.png" alt="10k" width={40} height={40} />
+      <Image
+        className="w-10 h-auto"
+        src="/images/logo-black.png"
+        alt="10k"
+        width={logoSize}
+        height={logoSize}
+        priority
+      />
     );
   }
 
