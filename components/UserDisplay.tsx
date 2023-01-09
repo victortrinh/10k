@@ -10,9 +10,11 @@ interface Props {
   showName?: boolean;
   centered?: boolean;
   rank?: Ranking;
+  size?: number;
+  className?: string;
 }
 
-export const UserDisplay = ({ rank, user, showName, centered }: Props) => {
+export const UserDisplay = ({ rank, user, showName, centered, className, size = 40 }: Props) => {
   const custom = useMemo(() => {
     switch (rank) {
       case "gold":
@@ -35,33 +37,51 @@ export const UserDisplay = ({ rank, user, showName, centered }: Props) => {
     }
   }, [rank]);
 
+  const medal = useMemo(() => {
+    if (!custom) {
+      return null;
+    }
+
+    if (size <= 40) {
+      return       (
+        <div
+          className={`absolute -top-1 -right-1 rounded-full ring-2 w-4 h-4 ${custom.color} flex items-center justify-center bg-white dark:bg-background`}
+        >
+          {custom.icon}
+        </div>
+      );
+    }
+
+    return (
+      <div
+        className={`absolute -top-1 -right-1 rounded-full ring-2 w-8 h-8 ${custom.color} flex items-center justify-center bg-white dark:bg-background`}
+      >
+        {custom.icon}
+      </div>
+    );
+  }, [custom]);
+
   return (
     <div
       className={classNames(
         "flex items-center gap-3",
-        centered && "justify-center"
+        centered && "justify-center",
+        className
       )}
     >
       <div className="relative w-fit">
         <Image
           className={classNames(
-            `w-10 h-10 p-1 rounded-full ring-2 ring-${user.color}-500 dark:ring-${user.color}-200`,
+            `p-1 rounded-full ring-2 ring-${user.color}-500 dark:ring-${user.color}-200`,
             custom?.color
           )}
-          width={40}
-          height={40}
+          width={size}
+          height={size}
           src={user.imageUrl}
           alt={user.name}
         />
-        {custom && (
-          <div
-            className={`absolute -top-1 -right-1 rounded-full ring-2 w-4 h-4 ${custom.color} flex items-center justify-center bg-white dark:bg-background`}
-          >
-            {custom.icon}
-          </div>
-        )}
+        {medal}
       </div>
-
       {showName && (
         <div className="hidden md:block font-medium dark:text-white">
           {user.name}

@@ -4,6 +4,7 @@ import { Exercise, Set, User } from "@models/models";
 import { GetServerSideProps } from "next";
 import { MainTabs } from "@components/main-tabs/MainTabs";
 import { RepsTable } from "@components/main/RepsTable";
+import { Total } from "@components/main/total/Total";
 import { capitalize } from "lodash";
 import { initializeSetStore } from "@stores/setStore";
 import Layout from "@components/Layout";
@@ -81,19 +82,7 @@ const Main = ({ exercise, exercises, sets, users }: Props) => {
 
   if (!selectedExercise) {
     return  (
-      <Layout>
-        <Container>
-          <main>
-            <MainTabs exercises={exercises} exerciseName="total" />
-            <div className="mt-8 mb-6">
-              <Heading as="h1">Total</Heading>
-            </div>
-            <div className="flex flex-col gap-8">
-              <RepsTable users={users} />
-            </div>
-          </main>
-        </Container>
-      </Layout>
+      <Total exercises={exercises} users={users} />
     );
   }
 
