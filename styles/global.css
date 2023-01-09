@@ -21,6 +21,10 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+* {
+  @apply transition-all duration-200;
+}
+
 :root {
   --toastify-color-dark: #1e3a8a;
 

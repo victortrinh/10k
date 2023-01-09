@@ -6,6 +6,7 @@ import { addSet } from "../../../../stores/setStore";
 import { Button, Spinner, TextInput } from "flowbite-react";
 import { toast } from "react-toastify";
 import { sendDiscordMessage } from "../../../../lib/discord";
+import { HiOutlinePlus } from "react-icons/hi";
 
 interface Props {
   exercise: Exercise;
@@ -43,7 +44,7 @@ export const AddRep = ({ exercise, user }: Props) => {
     toast(`🔥 Successfully added ${reps} of ${exercise.name}`);
     setIsLoading(false);
     setReps("");
-    sendDiscordMessage(user.name, Number(reps), exercise.name);
+    // sendDiscordMessage(user.name, Number(reps), exercise.name);
   };
 
   return (
@@ -52,24 +53,23 @@ export const AddRep = ({ exercise, user }: Props) => {
         <UserDisplay user={user} showName />
       </div>
       <TextInput
-        className="w-28"
+        className="w-16"
         onChange={onChangeReps}
-        placeholder={`# of ${exercise.name.toLowerCase()}`}
+        placeholder="0"
         value={reps}
         type="number"
         disabled={isLoading}
       />
       <Button
+        outline
         disabled={disableAddButton}
         gradientDuoTone="purpleToPink"
         onClick={() => onAddSet(user.id)}
       >
         Add
-        {isLoading && (
-          <div className="ml-3">
-            <Spinner size="sm" light={true} />{" "}
-          </div>
-        )}
+        <div className="ml-3">
+          {isLoading ? <Spinner size="sm" light={true} /> : <HiOutlinePlus />}
+        </div>
       </Button>
     </div>
   );
