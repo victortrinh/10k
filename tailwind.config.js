@@ -4,7 +4,7 @@ module.exports = {
   content: [
     "./node_modules/flowbite-react/**/*.js",
     "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}"
   ],
   safelist: [
     "ring-red-200",
@@ -28,7 +28,7 @@ module.exports = {
     "ring-cyan-500",
     "ring-teal-500",
     "ring-amber-500",
-    "ring-violet-500",
+    "ring-violet-500"
   ],
   plugins: [require("flowbite/plugin")],
   theme: {
@@ -39,14 +39,14 @@ module.exports = {
         sm: "2rem",
         lg: "4rem",
         xl: "5rem",
-        "2xl": "6rem",
-      },
+        "2xl": "6rem"
+      }
     },
     extend: {
       colors: {
-        background: "rgb(17 24 39)",
-      },
-    },
+        background: "rgb(17 24 39)"
+      }
+    }
   },
-  plugins: [],
+  plugins: []
 };

@@ -1,5 +1,5 @@
-import { Table } from "flowbite-react";
 import { ReactNode } from "react";
+import { Table } from "flowbite-react";
 
 interface Props {
   children: ReactNode;

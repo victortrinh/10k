@@ -1,14 +1,14 @@
-import { format, isToday } from "date-fns";
-import { Set, User } from "../../models/models";
-import { Ranking, UserDisplay } from "../UserDisplay";
-import { groupBy } from "lodash";
-import { useSetStore } from "../../stores/setStore";
-import { Table } from "flowbite-react";
-import { RepsTableDayRow } from "./components/RepsTableDayRow";
-import { TableRow } from "./components/TableRow";
 import { MainTableCell } from "./components/MainTableCell";
 import { NoneTodayRow } from "./components/NoneTodayRow";
+import { Ranking, UserDisplay } from "../UserDisplay";
+import { RepsTableDayRow } from "./components/RepsTableDayRow";
+import { Set, User } from "../../models/models";
+import { Table } from "flowbite-react";
+import { TableRow } from "./components/TableRow";
 import { TotalRow } from "./components/TotalRow";
+import { format, isToday } from "date-fns";
+import { groupBy } from "lodash";
+import { useSetStore } from "../../stores/setStore";
 
 interface Props {
   exerciseId?: string;
@@ -33,7 +33,7 @@ export const RepsTable = ({ exerciseId, users }: Props) => {
   const totalRepsByUser = Object.values(setsByUser)
     .map((setByUser) => ({
       ...setByUser[0],
-      reps: setByUser.map((set) => set.reps).reduce((a, b) => a + b, 0),
+      reps: setByUser.map((set) => set.reps).reduce((a, b) => a + b, 0)
     }))
     .sort((a, b) => b.reps - a.reps);
   const totalRankingByUser = totalRepsByUser.map((set) => set.userId);
@@ -69,7 +69,7 @@ export const RepsTable = ({ exerciseId, users }: Props) => {
           return set.exercise.id === exerciseId;
         })
         .flatMap((set) => set.reps)
-        .reduce((a, b) => a + b, 0),
+        .reduce((a, b) => a + b, 0)
     }))
     .sort((a, b) => b.reps - a.reps);
 
@@ -92,7 +92,7 @@ export const RepsTable = ({ exerciseId, users }: Props) => {
           <TotalRow sets={filteredSets} users={sortedUsers} />
           {noneToday && <NoneTodayRow users={sortedUsers} />}
           {Object.values(days).map((day, index) => (
-            <TableRow key={index}>
+            <TableRow key={day[index].id}>
               <MainTableCell>
                 {format(new Date(day[0].createdAt), "MMM d")}
               </MainTableCell>

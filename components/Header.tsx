@@ -1,7 +1,7 @@
-import React from "react";
 import { Container } from "./design-system";
 import { ModeToggle } from "./ModeToggle";
 import { useTheme } from "next-themes";
+import React from "react";
 
 const Header: React.FC = () => {
   const { theme } = useTheme();

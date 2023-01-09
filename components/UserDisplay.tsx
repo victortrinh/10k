@@ -1,8 +1,6 @@
-// import { ChangeEvent, useState } from "react";
-import { Avatar } from "flowbite-react";
 import { User } from "../models/models";
-import classNames from "classnames";
 import { useMemo } from "react";
+import classNames from "classnames";
 
 export type Ranking = "gold" | "silver" | "bronze";
 
@@ -19,17 +17,17 @@ export const UserDisplay = ({ rank, user, showName, centered }: Props) => {
       case "gold":
         return {
           color: "!ring-yellow-400",
-          icon: "🥇",
+          icon: "🥇"
         };
       case "silver":
         return {
           color: "!ring-gray-300",
-          icon: "🥈",
+          icon: "🥈"
         };
       case "bronze":
         return {
           color: "!ring-yellow-600",
-          icon: "🥉",
+          icon: "🥉"
         };
       default:
         return undefined;

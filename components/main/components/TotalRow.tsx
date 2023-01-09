@@ -1,7 +1,7 @@
-import { groupBy } from "lodash";
-import { TableRow } from "./TableRow";
 import { MainTableCell } from "./MainTableCell";
 import { Set, User } from "../../../models";
+import { TableRow } from "./TableRow";
+import { groupBy } from "lodash";
 
 interface Props {
   sets: Set[];
@@ -21,7 +21,7 @@ export const TotalRow = ({ users, sets }: Props) => {
     const sortedSets = Object.values(setsPerUserForDay)
       .map((setByUser) => ({
         userId: setByUser[0].userId,
-        reps: setByUser.map((set) => set.reps).reduce((a, b) => a + b, 0),
+        reps: setByUser.map((set) => set.reps).reduce((a, b) => a + b, 0)
       }))
       .sort((a, b) => b.reps - a.reps);
 

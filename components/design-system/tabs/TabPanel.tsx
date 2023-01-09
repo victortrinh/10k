@@ -1,7 +1,6 @@
-import { Tab } from "@headlessui/react";
-import classNames from "classnames";
 import { Card } from "flowbite-react";
 import { ReactNode } from "react";
+import { Tab } from "@headlessui/react";
 
 interface Props {
   children: ReactNode;

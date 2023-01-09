@@ -1,0 +1,70 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "import"],
+  "extends": [
+    "@sharegate/eslint-config-typescript",
+    "@sharegate/eslint-config-sort-imports",
+    "@sharegate/eslint-config-lodash",
+    "@sharegate/eslint-config-strict",
+    "@sharegate/eslint-config-nextjs"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest": true
+  },
+  "rules": {
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "no-debugger": "warn",
+    "react/button-has-type": "off",
+    "indent": "off",
+    "@typescript-eslint/indent": ["error", 2],
+    "import/no-relative-parent-imports": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "argsIgnorePattern": "^_$" }
+    ],
+    "multiline-ternary": ["error", "always"],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
+    "@typescript-eslint/no-explicit-any": "error",
+    "react/jsx-filename-extension": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "@sharegate/rules/prefer-cx": "off",
+    "react/jsx-wrap-multilines": [
+      "error",
+      {
+        "declaration": "parens-new-line",
+        "assignment": "parens-new-line",
+        "return": "parens-new-line",
+        "arrow": "parens-new-line",
+        "condition": "parens-new-line",
+        "logical": "parens-new-line",
+        "prop": "parens-new-line"
+      }
+    ],
+  },
+  // "settings": {
+  //   "import/resolver": {
+  //     "alias": {
+  //       "extensions": [".js", ".jsx", ".ts", ".tsx"],
+  //       "map": [
+  //         ["@/components", "./src/components"],
+  //         ["@/hooks", "./src/hooks"],
+  //         ["@/http", "./src/http"],
+  //         ["@/models", "./src/models"],
+  //         ["@/pages", "./src/pages"],
+  //         ["@/styles", "./src/styles"],
+  //         ["@/lib", "./src/lib"],
+  //         ["@/icons", "./src/lib/icons"],
+  //         ["@/views", "./src/views"],
+  //         ["@/utils", "./src/utils"]
+  //       ]
+  //     }
+  //   }
+  // }
+}

@@ -1,6 +1,5 @@
-import { Table } from "flowbite-react";
-import { Exercise, User } from "../../../models";
 import { AddRep } from "./components/AddRep";
+import { Exercise, User } from "../../../models";
 
 interface Props {
   exercise: Exercise;

@@ -1,54 +1,54 @@
-import React, { Fragment, useEffect, useMemo, useState } from "react";
-import { GetServerSideProps } from "next";
-import Layout from "../components/Layout";
-import prisma from "../lib/prisma";
-import { Container, Heading } from "../components/design-system";
-import { RepsTable } from "../components/main/RepsTable";
-import { Exercise, Set, User } from "../models/models";
 import { AddReps } from "../components/main/add-reps/AddReps";
-import { initializeSetStore } from "../stores/setStore";
+import { Container, Heading } from "../components/design-system";
+import { Exercise, Set, User } from "../models/models";
+import { GetServerSideProps } from "next";
 import { Tab as HeadlessTab } from "@headlessui/react";
-import { TabList } from "../components/design-system/tabs/tab-list/TabList";
-import { Tab } from "../components/design-system/tabs/tab-list/components/Tab";
-import { TabPanel } from "../components/design-system/tabs/TabPanel";
-import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
+import { RepsTable } from "../components/main/RepsTable";
+import { Tab } from "../components/design-system/tabs/tab-list/components/Tab";
+import { TabList } from "../components/design-system/tabs/tab-list/TabList";
+import { TabPanel } from "../components/design-system/tabs/TabPanel";
+import { initializeSetStore } from "../stores/setStore";
+import { useRouter } from "next/router";
+import Layout from "../components/Layout";
+import React, { useEffect } from "react";
+import prisma from "../lib/prisma";
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const users = await prisma.user.findMany({
     orderBy: [
       {
-        name: "asc",
-      },
+        name: "asc"
+      }
     ],
     include: {
       sets: {
         select: {
           reps: true,
-          exercise: true,
-        },
-      },
-    },
+          exercise: true
+        }
+      }
+    }
   });
 
   const sets = await prisma.set.findMany({
     orderBy: [
       {
-        createdAt: "desc",
-      },
+        createdAt: "desc"
+      }
     ],
     include: {
       user: true,
-      exercise: true,
-    },
+      exercise: true
+    }
   });
 
   const exercises = await prisma.exercise.findMany({
     orderBy: [
       {
-        name: "asc",
-      },
-    ],
+        name: "asc"
+      }
+    ]
   });
 
   return {
@@ -56,8 +56,8 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       query,
       users,
       sets: JSON.parse(JSON.stringify(sets)),
-      exercises,
-    },
+      exercises
+    }
   };
 };
 
@@ -83,7 +83,7 @@ const Main = ({ query, exercises, sets, users }: Props) => {
 
   const onChangeTab = (index: number) => {
     router.replace({
-      query: { tab: exercises[index]?.name ?? "total" },
+      query: { tab: exercises[index]?.name ?? "total" }
     });
   };
 

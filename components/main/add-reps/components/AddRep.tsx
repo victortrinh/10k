@@ -1,12 +1,12 @@
-import { Set } from "@prisma/client";
+import { Button, Spinner, TextInput } from "flowbite-react";
 import { ChangeEvent, useState } from "react";
 import { Exercise, User } from "../../../../models";
+import { HiOutlinePlus } from "react-icons/hi";
+import { Set } from "@prisma/client";
 import { UserDisplay } from "../../../UserDisplay";
 import { addSet } from "../../../../stores/setStore";
-import { Button, Spinner, TextInput } from "flowbite-react";
-import { toast } from "react-toastify";
 import { sendDiscordMessage } from "../../../../lib/discord";
-import { HiOutlinePlus } from "react-icons/hi";
+import { toast } from "react-toastify";
 
 interface Props {
   exercise: Exercise;
@@ -28,14 +28,14 @@ export const AddRep = ({ exercise, user }: Props) => {
       createdAt: new Date(),
       exerciseId: exercise.id,
       reps: Number(reps),
-      userId,
+      userId
     };
 
     setIsLoading(true);
     const response = await fetch("/api/set", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
+      body: JSON.stringify(body)
     });
 
     const newSet = await response.json();
@@ -44,7 +44,7 @@ export const AddRep = ({ exercise, user }: Props) => {
     toast(`🔥 Successfully added ${reps} of ${exercise.name}`);
     setIsLoading(false);
     setReps("");
-    // sendDiscordMessage(user.name, Number(reps), exercise.name);
+    sendDiscordMessage(user.name, Number(reps), exercise.name);
   };
 
   return (
@@ -68,7 +68,9 @@ export const AddRep = ({ exercise, user }: Props) => {
       >
         Add
         <div className="ml-3">
-          {isLoading ? <Spinner size="sm" light={true} /> : <HiOutlinePlus />}
+          {isLoading
+            ? <Spinner size="sm" light />
+            : <HiOutlinePlus />}
         </div>
       </Button>
     </div>

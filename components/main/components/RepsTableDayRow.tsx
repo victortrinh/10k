@@ -1,8 +1,8 @@
+import { Set } from "../../../models";
+import { Table } from "flowbite-react";
 import { groupBy } from "lodash";
 import { useMemo } from "react";
-import { Table } from "flowbite-react";
 import classNames from "classnames";
-import { Set } from "../../../models";
 
 interface Props {
   userId: string;
@@ -20,7 +20,7 @@ export const RepsTableDayRow = ({ userId, sets }: Props) => {
     const sortedSets = Object.values(setsPerUserForDay)
       .map((setByUser) => ({
         userId: setByUser[0].userId,
-        reps: setByUser.map((set) => set.reps).reduce((a, b) => a + b, 0),
+        reps: setByUser.map((set) => set.reps).reduce((a, b) => a + b, 0)
       }))
       .sort((a, b) => b.reps - a.reps);
 

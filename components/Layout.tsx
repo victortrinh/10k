@@ -1,9 +1,9 @@
-import React, { ReactNode } from "react";
 import Header from "./Header";
+import React, { ReactNode } from "react";
 
-type Props = {
+interface Props {
   children: ReactNode;
-};
+}
 
 const Layout = ({ children }: Props) => (
   <div className="min-h-screen bg-slate-100 dark:bg-background">

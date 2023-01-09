@@ -1,21 +1,21 @@
-import create from "zustand";
 import { Set } from "../models";
+import create from "zustand";
 
 interface SetState {
   sets: Set[];
 }
 
-export const useSetStore = create<SetState>((set) => ({
-  sets: [],
+export const useSetStore = create<SetState>(() => ({
+  sets: []
 }));
 
 export const initializeSetStore = (sets: Set[]) =>
   useSetStore.setState(() => ({
-    sets,
+    sets
   }));
 
 export const addSet = (set: Set) => {
   useSetStore.setState((state) => ({
-    sets: [...state.sets, set],
+    sets: [...state.sets, set]
   }));
 };

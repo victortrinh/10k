@@ -1,8 +1,8 @@
-import { format } from "date-fns";
-import { Table } from "flowbite-react";
-import { User } from "../../../models";
-import { TableRow } from "./TableRow";
 import { MainTableCell } from "./MainTableCell";
+import { Table } from "flowbite-react";
+import { TableRow } from "./TableRow";
+import { User } from "../../../models";
+import { format } from "date-fns";
 
 interface Props {
   users: User[];

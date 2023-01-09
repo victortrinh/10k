@@ -1,19 +1,18 @@
-import React from "react";
-import { GetServerSideProps } from "next";
-import ReactMarkdown from "react-markdown";
-import Layout from "../../components/Layout";
-import prisma from "../../lib/prisma";
 import { Container } from "../../components/design-system";
+import { GetServerSideProps } from "next";
+import Layout from "../../components/Layout";
+import React from "react";
+import prisma from "../../lib/prisma";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const user = await prisma.user.findUnique({
     where: {
-      id: String(params?.id),
-    },
+      id: String(params?.id)
+    }
   });
 
   return {
-    props: user,
+    props: user
   };
 };
 

@@ -1,6 +1,6 @@
-import classNames from "classnames";
-import { Table } from "flowbite-react";
 import { ReactNode } from "react";
+import { Table } from "flowbite-react";
+import classNames from "classnames";
 
 interface Props {
   centered?: boolean;

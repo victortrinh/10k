@@ -11,7 +11,7 @@ const toxicMessages = [
   "J'SUIS TROP BON POUR VOUSSS!!",
   "KAAACHOOOOWWW 👉😎👉 🏎️",
   "BLEEHHHHH 🤙🤪🤙",
-  "Stay HARD 8==D",
+  "Stay HARD 8==D"
 ];
 
 export function sendDiscordMessage(
@@ -29,7 +29,7 @@ export function sendDiscordMessage(
 
   const params = {
     username: "Stay Hard Beast",
-    content: `${name} just did ${reps} ${exercise}! ${sample(toxicMessages)}!`,
+    content: `${name} just did ${reps} ${exercise}! ${sample(toxicMessages)}!`
   };
 
   request.send(JSON.stringify(params));

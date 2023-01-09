@@ -27,13 +27,15 @@ export const Heading = ({ as: Component, children }: Props) => {
     <Component
       className={`${className} mb-4 dark:text-white font-sans font-extrabold`}
     >
-      {Component === "h1" ? (
-        <span className="text-transparent bg-clip-text bg-gradient-to-r to-pink-600 from-sky-400">
-          {children}
-        </span>
-      ) : (
-        <>{children}</>
-      )}
+      {Component === "h1"
+        ? (
+          <span className="text-transparent bg-clip-text bg-gradient-to-r to-pink-600 from-sky-400">
+            {children}
+          </span>
+        )
+        : (
+          <>{children}</>
+        )}
     </Component>
   );
 };

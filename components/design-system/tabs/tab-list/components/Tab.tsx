@@ -1,6 +1,6 @@
-import classNames from "classnames";
-import { ReactNode } from "react";
 import { Tab as HeadlessTab } from "@headlessui/react";
+import { ReactNode } from "react";
+import classNames from "classnames";
 
 interface Props {
   children: ReactNode;
