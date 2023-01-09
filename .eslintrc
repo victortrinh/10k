@@ -18,7 +18,7 @@
     "jest": true
   },
   "rules": {
-    "react/jsx-one-expression-per-line": "error",
+    "react/jsx-one-expression-per-line": ["error", { "allow": "literal" }],
     "react/jsx-closing-tag-location": "error",
     "no-console": ["warn", { "allow": ["warn", "error"] }],
     "no-debugger": "warn",
