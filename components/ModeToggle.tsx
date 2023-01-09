@@ -1,46 +1,24 @@
+import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 export const ModeToggle = () => {
-  const [dark, setDark] = useState(true);
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
-    if (
-      localStorage.getItem("color-theme") === "dark" ||
-      (!("color-theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      setDark(true);
-      document.documentElement.classList.add("dark");
-    } else {
-      setDark(false);
-      document.documentElement.classList.remove("dark");
-    }
+    setMounted(true);
   }, []);
 
+  if (!mounted) {
+    return null;
+  }
+
   function onClick() {
-    if (localStorage.getItem("color-theme")) {
-      if (localStorage.getItem("color-theme") === "light") {
-        setDark(true);
-        document.documentElement.classList.add("dark");
-        localStorage.setItem("color-theme", "dark");
-      } else {
-        setDark(false);
-        document.documentElement.classList.remove("dark");
-        localStorage.setItem("color-theme", "light");
-      }
-
-      return;
+    if (theme === "light") {
+      return setTheme("dark");
     }
 
-    if (document.documentElement.classList.contains("dark")) {
-      setDark(false);
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("color-theme", "light");
-    } else {
-      setDark(true);
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("color-theme", "dark");
-    }
+    return setTheme("light");
   }
 
   return (
@@ -50,7 +28,7 @@ export const ModeToggle = () => {
       type="button"
       className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none rounded-lg text-sm p-2.5"
     >
-      {!dark ? (
+      {theme === "light" ? (
         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
           <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
         </svg>
