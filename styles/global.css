@@ -2,8 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  @apply bg-slate-100 dark:bg-background;
+html {
+  background-color: rgb(241, 245, 249);
+}
+
+html.dark {
+  background-color: rgb(17, 24, 39);
 }
 
 input::-webkit-outer-spin-button,
