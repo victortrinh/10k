@@ -22,7 +22,9 @@ const User = (props) => {
   return (
     <Layout>
       <Container>
-        <h2>{name}</h2>
+        <h2>
+          {name}
+        </h2>
       </Container>
     </Layout>
   );

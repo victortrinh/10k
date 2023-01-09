@@ -6,5 +6,7 @@ interface Props {
 }
 
 export const Container = ({ className, children }: Props) => (
-  <div className={`container ${className}`}>{children}</div>
+  <div className={`container ${className}`}>
+    {children}
+  </div>
 );

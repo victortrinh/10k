@@ -34,7 +34,9 @@ export const Heading = ({ as: Component, children }: Props) => {
           </span>
         )
         : (
-          <>{children}</>
+          <>
+            {children}
+          </>
         )}
     </Component>
   );

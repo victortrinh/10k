@@ -97,15 +97,21 @@ const Main = ({ query, exercises, sets, users }: Props) => {
           >
             <TabList>
               {exercises.map((exercise) => (
-                <Tab key={exercise.id}>{exercise.name}</Tab>
+                <Tab key={exercise.id}>
+                  {exercise.name}
+                </Tab>
               ))}
-              <Tab key="total">Total</Tab>
+              <Tab key="total">
+Total
+              </Tab>
             </TabList>
             <HeadlessTab.Panels className="mt-4">
               {exercises.map((exercise) => (
                 <TabPanel key={exercise.id}>
                   <Heading as="h1">
-                    Add reps for {exercise.name.toLowerCase()}
+                    Add reps for 
+                    {" "}
+                    {exercise.name.toLowerCase()}
                   </Heading>
                   <div className="flex flex-col gap-8">
                     <AddReps exercise={exercise} users={users} />
@@ -114,7 +120,9 @@ const Main = ({ query, exercises, sets, users }: Props) => {
                 </TabPanel>
               ))}
               <TabPanel key="total">
-                <Heading as="h1">Total</Heading>
+                <Heading as="h1">
+Total
+                </Heading>
                 <div className="flex flex-col gap-8">
                   <RepsTable users={users} />
                 </div>

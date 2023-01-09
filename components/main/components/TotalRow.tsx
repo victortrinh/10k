@@ -1,5 +1,5 @@
 import { MainTableCell } from "./MainTableCell";
-import { Set, User } from "@models/";
+import { Set, User } from "@models/models";
 import { TableRow } from "./TableRow";
 import { groupBy } from "lodash";
 
@@ -41,10 +41,14 @@ export const TotalRow = ({ users, sets }: Props) => {
 
   return (
     <TableRow>
-      <MainTableCell>Total</MainTableCell>
+      <MainTableCell>
+        Total
+      </MainTableCell>
       {users.map((user) => (
         <MainTableCell centered key={user.id}>
-          {totalRepsByUserId(user.id)} {getRanking(user.id)}
+          {totalRepsByUserId(user.id)} 
+          {" "}
+          {getRanking(user.id)}
         </MainTableCell>
       ))}
     </TableRow>

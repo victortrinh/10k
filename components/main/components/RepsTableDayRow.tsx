@@ -1,4 +1,4 @@
-import { Set } from "@models/";
+import { Set } from "@models/models";
 import { Table } from "flowbite-react";
 import { groupBy } from "lodash";
 import { useMemo } from "react";
@@ -45,7 +45,9 @@ export const RepsTableDayRow = ({ userId, sets }: Props) => {
         ranking && "text-black dark:text-white"
       )}
     >
-      {totalForDayForUser} {ranking}
+      {totalForDayForUser} 
+      {" "}
+      {ranking}
     </Table.Cell>
   );
 };
