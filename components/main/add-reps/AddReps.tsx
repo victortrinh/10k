@@ -1,5 +1,5 @@
 import { AddRep } from "./components/AddRep";
-import { Exercise, User } from "../../../models";
+import { Exercise, User } from "@models/models";
 
 interface Props {
   exercise: Exercise;

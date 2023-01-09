@@ -1,4 +1,4 @@
-import { Set } from "../../../models";
+import { Set } from "@models/";
 import { Table } from "flowbite-react";
 import { groupBy } from "lodash";
 import { useMemo } from "react";

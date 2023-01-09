@@ -1,18 +1,18 @@
-import { AddReps } from "../components/main/add-reps/AddReps";
-import { Container, Heading } from "../components/design-system";
-import { Exercise, Set, User } from "../models/models";
+import { AddReps } from "@components/main/add-reps/AddReps";
+import { Container, Heading } from "@components/design-system";
+import { Exercise, Set, User } from "@models/models";
 import { GetServerSideProps } from "next";
 import { Tab as HeadlessTab } from "@headlessui/react";
 import { ParsedUrlQuery } from "querystring";
-import { RepsTable } from "../components/main/RepsTable";
-import { Tab } from "../components/design-system/tabs/tab-list/components/Tab";
-import { TabList } from "../components/design-system/tabs/tab-list/TabList";
-import { TabPanel } from "../components/design-system/tabs/TabPanel";
-import { initializeSetStore } from "../stores/setStore";
+import { RepsTable } from "@components/main/RepsTable";
+import { Tab } from "@components/design-system/tabs/tab-list/components/Tab";
+import { TabList } from "@components/design-system/tabs/tab-list/TabList";
+import { TabPanel } from "@components/design-system/tabs/TabPanel";
+import { initializeSetStore } from "@stores/setStore";
 import { useRouter } from "next/router";
-import Layout from "../components/Layout";
+import Layout from "@components/Layout";
 import React, { useEffect } from "react";
-import prisma from "../lib/prisma";
+import prisma from "@lib/prisma";
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const users = await prisma.user.findMany({

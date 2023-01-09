@@ -1,7 +1,7 @@
 import { MainTableCell } from "./MainTableCell";
 import { Table } from "flowbite-react";
 import { TableRow } from "./TableRow";
-import { User } from "../../../models";
+import { User } from "@models/";
 import { format } from "date-fns";
 
 interface Props {

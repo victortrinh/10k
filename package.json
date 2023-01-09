@@ -30,6 +30,7 @@
     "zustand": "^4.2.0"
   },
   "devDependencies": {
+    "@dword-design/eslint-plugin-import-alias": "^3.0.0",
     "@sharegate/eslint-config-lodash": "^1.1.0",
     "@sharegate/eslint-config-nextjs": "^3.0.1",
     "@sharegate/eslint-config-sort-imports": "^1.1.0",

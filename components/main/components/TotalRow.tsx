@@ -1,5 +1,5 @@
 import { MainTableCell } from "./MainTableCell";
-import { Set, User } from "../../../models";
+import { Set, User } from "@models/";
 import { TableRow } from "./TableRow";
 import { groupBy } from "lodash";
 

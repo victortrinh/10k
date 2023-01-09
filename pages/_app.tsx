@@ -1,4 +1,4 @@
-import "../styles/global.css";
+import "@styles/global.css";
 import "react-toastify/dist/ReactToastify.css";
 import { AppProps } from "next/app";
 import { Inter } from "@next/font/google";

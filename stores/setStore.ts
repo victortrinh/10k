@@ -1,4 +1,4 @@
-import { Set } from "../models";
+import { Set } from "@models/models";
 import create from "zustand";
 
 interface SetState {

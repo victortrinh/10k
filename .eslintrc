@@ -1,12 +1,13 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "import"],
+  "plugins": ["@typescript-eslint"],
   "extends": [
     "@sharegate/eslint-config-typescript",
     "@sharegate/eslint-config-sort-imports",
     "@sharegate/eslint-config-lodash",
     "@sharegate/eslint-config-strict",
-    "@sharegate/eslint-config-nextjs"
+    "@sharegate/eslint-config-nextjs",
+    "plugin:@dword-design/import-alias/recommended"
   ],
   "parserOptions": {
     "ecmaVersion": 2018
@@ -47,24 +48,19 @@
         "prop": "parens-new-line"
       }
     ],
-  },
-  // "settings": {
-  //   "import/resolver": {
-  //     "alias": {
-  //       "extensions": [".js", ".jsx", ".ts", ".tsx"],
-  //       "map": [
-  //         ["@/components", "./src/components"],
-  //         ["@/hooks", "./src/hooks"],
-  //         ["@/http", "./src/http"],
-  //         ["@/models", "./src/models"],
-  //         ["@/pages", "./src/pages"],
-  //         ["@/styles", "./src/styles"],
-  //         ["@/lib", "./src/lib"],
-  //         ["@/icons", "./src/lib/icons"],
-  //         ["@/views", "./src/views"],
-  //         ["@/utils", "./src/utils"]
-  //       ]
-  //     }
-  //   }
-  // }
+    "@dword-design/import-alias/prefer-alias": [
+      "error",
+      {
+        "alias": {
+          "@components": "./components",
+          "@ds": "./components/design-system",
+          "@lib": "./lib",
+          "@models": "./models",
+          "@pages": "./pages",
+          "@prisma": "./prisma",
+          "@stores": "./stores"
+        }
+      }
+    ]
+  }
 }

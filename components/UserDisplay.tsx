@@ -1,5 +1,6 @@
-import { User } from "../models/models";
+import { User } from "@models/models";
 import { useMemo } from "react";
+import Image from "next/image";
 import classNames from "classnames";
 
 export type Ranking = "gold" | "silver" | "bronze";
@@ -42,11 +43,13 @@ export const UserDisplay = ({ rank, user, showName, centered }: Props) => {
       )}
     >
       <div className="relative w-fit">
-        <img
+        <Image
           className={classNames(
             `w-10 h-10 p-1 rounded-full ring-2 ring-${user.color}-500 dark:ring-${user.color}-200`,
             custom?.color
           )}
+          width={40}
+          height={40}
           src={user.imageUrl}
           alt={user.name}
         />

@@ -1,14 +1,10 @@
-import { MainTableCell } from "./components/MainTableCell";
-import { NoneTodayRow } from "./components/NoneTodayRow";
-import { Ranking, UserDisplay } from "../UserDisplay";
-import { RepsTableDayRow } from "./components/RepsTableDayRow";
-import { Set, User } from "../../models/models";
+import { MainTableCell, NoneTodayRow, RepsTableDayRow, TableRow, TotalRow } from "./components";
+import { Ranking, UserDisplay } from "@components/UserDisplay";
+import { Set, User } from "@models/models";
 import { Table } from "flowbite-react";
-import { TableRow } from "./components/TableRow";
-import { TotalRow } from "./components/TotalRow";
 import { format, isToday } from "date-fns";
 import { groupBy } from "lodash";
-import { useSetStore } from "../../stores/setStore";
+import { useSetStore } from "@stores/setStore";
 
 interface Props {
   exerciseId?: string;
@@ -91,8 +87,8 @@ export const RepsTable = ({ exerciseId, users }: Props) => {
         <Table.Body className="divide-y">
           <TotalRow sets={filteredSets} users={sortedUsers} />
           {noneToday && <NoneTodayRow users={sortedUsers} />}
-          {Object.values(days).map((day, index) => (
-            <TableRow key={day[index].id}>
+          {Object.values(days).map((day) => (
+            <TableRow key={day[0]?.id}>
               <MainTableCell>
                 {format(new Date(day[0].createdAt), "MMM d")}
               </MainTableCell>

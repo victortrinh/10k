@@ -1,11 +1,11 @@
 import { Button, Spinner, TextInput } from "flowbite-react";
 import { ChangeEvent, useState } from "react";
-import { Exercise, User } from "../../../../models";
+import { Exercise, User } from "@models/models";
 import { HiOutlinePlus } from "react-icons/hi";
 import { Set } from "@prisma/client";
-import { UserDisplay } from "../../../UserDisplay";
-import { addSet } from "../../../../stores/setStore";
-import { sendDiscordMessage } from "../../../../lib/discord";
+import { UserDisplay } from "@components/UserDisplay";
+import { addSet } from "@stores/setStore";
+import { sendDiscordMessage } from "@lib/discord";
 import { toast } from "react-toastify";
 
 interface Props {
