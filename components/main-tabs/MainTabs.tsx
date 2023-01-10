@@ -15,7 +15,7 @@ export const MainTabs = ({ exercises, exerciseName }: Props) => {
     ? exercises.length
     : exercises.findIndex((exercise) => exercise.name === exerciseName);
   
-  function onChangeTab(index) {
+  function onChangeTab(index: number) {
     const exercise = exercises[index]?.name ?? "total";
     Router.push("/[exercise]", `/${exercise.toLowerCase()}`);
   }
