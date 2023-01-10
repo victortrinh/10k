@@ -36,10 +36,10 @@ export const getStaticProps: GetStaticProps = async () => {
   const [firstExercise] = exercises;
 
   const sets = await prisma.set.findMany({
-    where: { 
+    where: {
       exercise: {
         name: firstExercise.name
-      } 
+      }
     },
     orderBy: [
       {
@@ -75,6 +75,7 @@ const Main = ({ exercises, users, sets }: Props) => {
     <Layout>
       <Container>
         <main>
+          iloveyouwictor
           <MainTabs exercises={exercises} exerciseName={firstExercise.name} />
           <div className="mt-8 mb-6">
             <Heading as="h1">Add reps for Pull ups</Heading>
