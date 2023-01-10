@@ -70,16 +70,18 @@ export const UserDisplay = ({ rank, user, showName, centered, className, size = 
       )}
     >
       <div className="relative w-fit">
-        <Image
-          className={classNames(
-            `p-1 rounded-full ring-2 ring-${user.color}-500 dark:ring-${user.color}-200`,
-            custom?.color
-          )}
-          width={size}
-          height={size}
-          src={user.imageUrl}
-          alt={user.name}
-        />
+        {user.imageUrl && (
+          <Image
+            className={classNames(
+              `p-1 rounded-full ring-2 ring-${user.color}-500 dark:ring-${user.color}-200`,
+              custom?.color
+            )}
+            width={size}
+            height={size}
+            src={user.imageUrl}
+            alt={user.name}
+          />
+        )}
         {medal}
       </div>
       {showName && (

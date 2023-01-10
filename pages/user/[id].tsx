@@ -1,5 +1,6 @@
 import { Container } from "@components/design-system";
 import { GetServerSideProps } from "next";
+import { User } from "@models/models";
 import Layout from "@components/Layout";
 import React from "react";
 import prisma from "@lib/prisma";
@@ -12,12 +13,22 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   });
 
   return {
-    props: user
+    props: {
+      user
+    }
   };
 };
 
-const User = (props) => {
-  const { name } = props;
+interface Props {
+  user?: User;
+}
+
+const User = ({ user }: Props) => {
+  if (!user) {
+    return;
+  }
+
+  const { name } = user;
 
   return (
     <Layout>

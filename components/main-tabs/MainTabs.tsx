@@ -2,6 +2,8 @@ import { Exercise } from "@models/models";
 import { Tab as HeadlessTab } from "@headlessui/react";
 import { Tab } from "@components/design-system/tabs/tab-list/components/Tab";
 import { TabList } from "@components/design-system/tabs/tab-list/TabList";
+import { initializeExercisesStore, setExercise } from "@stores/exerciseStore";
+import { useEffect } from "react";
 import Router from "next/router";
 
 interface Props {
@@ -10,6 +12,10 @@ interface Props {
 }
 
 export const MainTabs = ({ exercises, exerciseName }: Props) => {
+  useEffect(() => {
+    initializeExercisesStore(exercises, exerciseName);
+  }, []);
+
   const selectedIndex =
   exerciseName === "total"
     ? exercises.length
@@ -17,6 +23,7 @@ export const MainTabs = ({ exercises, exerciseName }: Props) => {
   
   function onChangeTab(index: number) {
     const exercise = exercises[index]?.name ?? "total";
+    setExercise(exercise);
     Router.push("/[exercise]", `/${exercise.toLowerCase()}`);
   }
 

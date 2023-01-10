@@ -17,8 +17,8 @@ export const TotalRow = ({ users, sets }: Props) => {
   }
 
   function getRanking(userId: string) {
-    const setsPerUserForDay: Set[][] = groupBy(sets, (set) => set.userId);
-    const sortedSets = Object.values(setsPerUserForDay)
+    const setsPerUserForDay: Set[][] = Object.values(groupBy(sets, (set) => set.userId));
+    const sortedSets = setsPerUserForDay
       .map((setByUser) => ({
         userId: setByUser[0].userId,
         reps: setByUser.map((set) => set.reps).reduce((a, b) => a + b, 0)

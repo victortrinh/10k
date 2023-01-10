@@ -27,12 +27,12 @@ export const RepsTable = ({ sets: initialSets, exerciseId, users }: Props) => {
     return set.exerciseId === exerciseId;
   });
 
-  const days: Set[][] = groupBy(filteredSets, (set) =>
+  const days: Set[][] = Object.values(groupBy(filteredSets, (set) =>
     format(new Date(set.createdAt), "dd MMM")
-  );
+  ));
 
-  const setsByUser: Set[][] = groupBy(filteredSets, (set) => set.userId);
-  const totalRepsByUser = Object.values(setsByUser)
+  const setsByUser: Set[][] = Object.values(groupBy(filteredSets, (set) => set.userId));
+  const totalRepsByUser = setsByUser
     .map((setByUser) => ({
       ...setByUser[0],
       reps: setByUser.map((set) => set.reps).reduce((a, b) => a + b, 0)
@@ -95,7 +95,7 @@ export const RepsTable = ({ sets: initialSets, exerciseId, users }: Props) => {
         <Table.Body className="divide-y">
           <TotalRow sets={filteredSets} users={sortedUsers} />
           {noneToday && <NoneTodayRow users={sortedUsers} />}
-          {Object.values(days).map((day) => (
+          {days.map((day) => (
             <TableRow key={day[0]?.id}>
               <MainTableCell>
                 {format(new Date(day[0].createdAt), "MMM d")}
