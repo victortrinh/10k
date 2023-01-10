@@ -12,7 +12,8 @@ const toxicMessages = [
   "KAAACHOOOOWWW 👉😎👉 🏎️",
   "BLEEHHHHH 🤙🤪🤙",
   "Stay HARD 8==D",
-  "Making mama proud 😏"
+  "Making mama proud 😏",
+  "YAMATEEE KURASAIIIIIIII 😝 "
 ];
 
 export function sendDiscordMessage(
