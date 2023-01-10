@@ -34,8 +34,18 @@ const Header: React.FC = () => {
   return (
     <div className="w-full h-[60px] mb-6 flex items-center">
       <Container className="h-full">
-        <div className="w-full h-full relative border-b border-gray-800 flex items-center justify-between">
-          {logo}
+        <div className="w-full h-full relative border-b border-gray-300 dark:border-gray-800 flex items-center justify-between">
+          <div className="flex items-center">
+            {logo}
+            <Image
+              className="w-10 h-auto"
+              src="/images/stay-hard.png"
+              alt="Stay hard"
+              width={logoSize}
+              height={logoSize}
+            />
+          </div>
+
           <ModeToggle />
         </div>
       </Container>
