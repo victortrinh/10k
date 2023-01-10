@@ -16,6 +16,7 @@ const Header: React.FC = () => {
       alt="10k"
       width={logoSize}
       height={logoSize}
+      priority
     />
   );
 
@@ -27,6 +28,7 @@ const Header: React.FC = () => {
         alt="10k"
         width={logoSize}
         height={logoSize}
+        priority
       />
     );
   }
@@ -43,6 +45,7 @@ const Header: React.FC = () => {
               alt="Stay hard"
               width={logoSize}
               height={logoSize}
+              priority
             />
           </div>
 

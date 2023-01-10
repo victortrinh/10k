@@ -15,11 +15,11 @@ export const Total = ({ exercises, users }: Props) => (
     <Container>
       <main>
         <MainTabs exercises={exercises} exerciseName="total" />
-        <div className="mt-8 mb-6">
+        <div className="mt-8">
           <Heading as="h1">Totals</Heading>
         </div>
         <TotalPoints users={users} />
-        <div className="mt-8 mb-6">
+        <div className="mt-8">
           <Heading as="h2">Total reps</Heading>
         </div>
         <RepsTable users={users} />

@@ -33,9 +33,7 @@ export const TotalPoints = ({ users }: Props) => {
 
   return (
     <>
-      <div className="mt-8 mb-6">
-        <Heading as="h2">Total points</Heading>
-      </div>
+      <Heading as="h2">Total points</Heading>
       <div className="mb-6 relative w-full h-[190px]">
         <div className="absolute right-1/2 translate-x-1/2">
           <div className="relative">
@@ -81,19 +79,21 @@ export const TotalPoints = ({ users }: Props) => {
             Points
           </Table.HeadCell>
         </Table.Head>
-        {otherUsers.map((user, index) => (
-          <TableRow key={user.id}>
-            <MainTableCell>
-              {index + 3}
-            </MainTableCell>
-            <Table.Cell>
-              <UserDisplay user={user} showName />
-            </Table.Cell>
-            <MainTableCell>
-              {user.points}
-            </MainTableCell>
-          </TableRow>
-        ))}
+        <Table.Body>
+          {otherUsers.map((user, index) => (
+            <TableRow key={user.id}>
+              <MainTableCell>
+                {index + 3}
+              </MainTableCell>
+              <Table.Cell>
+                <UserDisplay user={user} showName />
+              </Table.Cell>
+              <MainTableCell>
+                {user.points}
+              </MainTableCell>
+            </TableRow>
+          ))}
+        </Table.Body>
       </Table>
       <Card className="w-fit">
         <Heading as="h3">Counts as 1 point</Heading>
