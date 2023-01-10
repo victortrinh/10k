@@ -4,14 +4,20 @@ import { Set, User } from "@models/models";
 import { Table } from "flowbite-react";
 import { format, isToday } from "date-fns";
 import { groupBy } from "lodash";
-import { useSetStore } from "@stores/setStore";
+import { initializeSetStore, useSetStore } from "@stores/setStore";
+import { useEffect } from "react";
 
 interface Props {
   exerciseId?: string;
   users: User[];
+  sets: Set[];
 }
 
-export const RepsTable = ({ exerciseId, users }: Props) => {
+export const RepsTable = ({ sets: initialSets, exerciseId, users }: Props) => {
+  useEffect(() => {
+    initializeSetStore(initialSets);
+  }, []);
+
   const sets = useSetStore((state) => state.sets);
   const filteredSets = sets.filter((set) => {
     if (!exerciseId) {

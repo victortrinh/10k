@@ -96,7 +96,7 @@ export const TotalPoints = ({ users }: Props) => {
           ))}
         </Table.Body>
       </Table>
-      <Card className="w-fit">
+      <Card className="w-fit mt-4">
         <Heading as="h3">Counts as 1 point</Heading>
         <div className="-mt-4">10 squats</div>
         <div className="-mt-4">5 push ups</div>

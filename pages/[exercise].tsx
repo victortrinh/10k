@@ -6,9 +6,8 @@ import { MainTabs } from "@components/main-tabs/MainTabs";
 import { RepsTable } from "@components/main/RepsTable";
 import { Total } from "@components/main/total/Total";
 import { capitalize } from "lodash";
-import { initializeSetStore } from "@stores/setStore";
 import Layout from "@components/Layout";
-import React, { useEffect } from "react";
+import React from "react";
 import prisma from "@lib/prisma";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
@@ -76,13 +75,9 @@ interface Props {
 const Main = ({ exercise, exercises, sets, users }: Props) => {
   const selectedExercise = exercises.find(e => e.name === exercise);
 
-  useEffect(() => {
-    initializeSetStore(sets);
-  }, [sets]);
-
   if (!selectedExercise) {
     return  (
-      <Total exercises={exercises} users={users} />
+      <Total sets={sets} exercises={exercises} users={users} />
     );
   }
 
@@ -100,7 +95,7 @@ const Main = ({ exercise, exercises, sets, users }: Props) => {
           </div>
           <div className="flex flex-col gap-8">
             <AddReps exercise={selectedExercise} users={users} />
-            <RepsTable exerciseId={selectedExercise.id} users={users} />
+            <RepsTable sets={sets} exerciseId={selectedExercise.id} users={users} />
           </div>
         </main>
       </Container>

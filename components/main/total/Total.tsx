@@ -1,5 +1,5 @@
 import { Container, Heading } from "@components/design-system";
-import { Exercise, User } from "@models/models";
+import { Exercise, Set, User } from "@models/models";
 import { MainTabs } from "@components/main-tabs/MainTabs";
 import { RepsTable } from "@components/main/RepsTable";
 import { TotalPoints } from "./components/TotalPoints";
@@ -8,9 +8,10 @@ import Layout from "@components/Layout";
 interface Props {
   exercises: Exercise[];
   users: User[];
+  sets: Set[];
 }
 
-export const Total = ({ exercises, users }: Props) => (
+export const Total = ({ sets, exercises, users }: Props) => (
   <Layout>
     <Container>
       <main>
@@ -22,7 +23,7 @@ export const Total = ({ exercises, users }: Props) => (
         <div className="mt-8">
           <Heading as="h2">Total reps</Heading>
         </div>
-        <RepsTable users={users} />
+        <RepsTable sets={sets} users={users} />
       </main>
     </Container>
   </Layout>

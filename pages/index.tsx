@@ -4,9 +4,8 @@ import { Exercise, Set, User } from "@models/models";
 import { GetStaticProps } from "next";
 import { MainTabs } from "@components/main-tabs/MainTabs";
 import { RepsTable } from "@components/main/RepsTable";
-import { initializeSetStore } from "@stores/setStore";
 import Layout from "@components/Layout";
-import React, { useEffect } from "react";
+import React from "react";
 import prisma from "@lib/prisma";
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -69,12 +68,8 @@ interface Props {
   users: User[];
 }
 
-const Main = ({ exercises, sets, users }: Props) => {
+const Main = ({ exercises, users, sets }: Props) => {
   const [firstExercise] = exercises;
-
-  useEffect(() => {
-    initializeSetStore(sets);
-  }, []);
 
   return (
     <Layout>
@@ -86,7 +81,7 @@ const Main = ({ exercises, sets, users }: Props) => {
           </div>
           <div className="flex flex-col gap-8">
             <AddReps exercise={firstExercise} users={users} />
-            <RepsTable exerciseId={firstExercise.id} users={users} />
+            <RepsTable sets={sets} exerciseId={firstExercise.id} users={users} />
           </div>
         </main>
       </Container>
