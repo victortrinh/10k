@@ -3,6 +3,7 @@ import { Heading } from "@components/design-system";
 import { MainTableCell, TableRow } from "@components/main/components";
 import { User } from "@models/models";
 import { UserDisplay } from "@components/UserDisplay";
+import { round } from "lodash";
 
 interface Props {
   users: User[];
@@ -25,7 +26,7 @@ export const TotalPoints = ({ users }: Props) => {
           pointsToAdd = b.reps;
       }
 
-      return a + pointsToAdd;
+      return a + round(pointsToAdd);
     }, 0)
   })).sort((a, b) => b.points - a.points);
 
