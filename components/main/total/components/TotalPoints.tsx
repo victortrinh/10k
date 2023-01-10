@@ -83,7 +83,7 @@ export const TotalPoints = ({ users }: Props) => {
           {otherUsers.map((user, index) => (
             <TableRow key={user.id}>
               <MainTableCell>
-                {index + 3}
+                {index + 4}
               </MainTableCell>
               <Table.Cell>
                 <UserDisplay user={user} showName />
