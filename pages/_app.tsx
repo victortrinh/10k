@@ -5,6 +5,7 @@ import { Inter } from "@next/font/google";
 import { ThemeProvider } from "next-themes";
 import { ToastContainer } from "react-toastify";
 import Head from "next/head";
+import Maintenance from "@components/Maintenance";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,11 +35,14 @@ const App = ({ Component, pageProps }: AppProps) => (
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
         <title>
-10K
+          10K
         </title>
       </Head>
       <main className={`${inter.className} font-sans`}>
-        <Component {...pageProps} />
+        {process.env.MAINTENANCE_MODE === "true"
+          ? <Maintenance />
+          : <Component {...pageProps} />}
+        
         <ToastContainer
           position="top-right"
           autoClose={3000}

@@ -21,7 +21,7 @@ export const AddRep = ({ exercise, user }: Props) => {
     setReps(e.target.value);
   };
 
-  const disableAddButton = Number(reps) === 0;
+  const disableAddButton = isLoading || Number(reps) === 0;
 
   const onAddSet = async (userId: string) => {
     const body: Omit<Set, "id"> = {

@@ -6,7 +6,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint --fix"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +14,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.7",
     "@next/font": "^13.1.1",
-    "@prisma/client": "^4.8.0",
+    "@prisma/client": "^4.8.1",
     "classnames": "^2.3.2",
     "date-fns": "^2.29.3",
     "flowbite": "^1.6.0",

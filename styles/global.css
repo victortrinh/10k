@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 html {
-  background-color: rgb(241, 245, 249);
+  @apply bg-[#F1F9F5];
 }
 
 html.dark {
-  background-color: rgb(17, 24, 39);
+  @apply bg-[#111827];
 }
 
 input::-webkit-outer-spin-button,
@@ -23,6 +23,18 @@ input[type="number"] {
 
 * {
   @apply transition-all duration-200;
+}
+
+*::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+*::-webkit-scrollbar {
+  @apply w-2 h-2 bg-transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply rounded-lg bg-black/[0.2];
 }
 
 :root {

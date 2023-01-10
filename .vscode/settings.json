@@ -11,5 +11,6 @@
   "javascript.format.enable": false,
   "javascript.validate.enable": true,
   "json.format.enable": false,
-  "eslint.alwaysShowStatus": true
+  "eslint.alwaysShowStatus": true,
+  "WillLuke.nextjs.hasPrompted": true
 }
