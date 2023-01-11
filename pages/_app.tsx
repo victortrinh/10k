@@ -71,6 +71,8 @@ const App = ({ Component, pageProps }: AppProps) => {
           <link rel="manifest" href="/site.webmanifest" />
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000" />
           <meta name="msapplication-TileColor" content="#da532c" />
+          <meta name="theme-color" content="#F1F9F5" media="(prefers-color-scheme: light)" />
+          <meta name="theme-color" content="#111827" media="(prefers-color-scheme: dark)" />
           <title>
             10K
           </title>

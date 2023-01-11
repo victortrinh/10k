@@ -30,7 +30,6 @@ input[type="number"] {
 }
 
 :root {
-  --background: #F1F9F5;
   --toastify-color-dark: #1e3a8a;
 
   --toastify-color-progress-dark: linear-gradient(
@@ -42,16 +41,4 @@ input[type="number"] {
     #5856d6,
     #ff2d55
   );
-}
-
-[data-theme='dark'] {
-  --background: #111827;
-}
-
-html {
-  @apply bg-[#F1F9F5];
-}
-
-html.dark {
-  @apply bg-[#111827];
 }

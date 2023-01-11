@@ -6,7 +6,7 @@ interface Props {
 }
 
 const Layout = ({ children }: Props) => (
-  <div className="min-h-screen bg-slate-100 dark:bg-background">
+  <div className="min-h-screen">
     <Header />
     <div className="pb-12">
       {children}
