@@ -76,7 +76,7 @@ const ShownTab = () => {
 
   if (!session) {
     return (
-      <Link href="/api/auth/signin/discord">
+      <Link href="/api/auth/signin">
         <Button disabled={isLoading} gradientDuoTone="purpleToPink">
           Log in
           {isLoading && <Spinner className="ml-3" size="sm" light />}
