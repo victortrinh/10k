@@ -4,7 +4,8 @@ module.exports = {
     DISCORD_SECRET: process.env.DISCORD_SECRET,
     MAINTENANCE_MODE: process.env.MAINTENANCE_MODE,
     DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
-    DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET
+    DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
+    SECRET: process.env.SECRET
   },
   images: {
     domains: ["i.imgur.com"]
