@@ -11,8 +11,5 @@ export default NextAuth({
       clientId: String(process.env.DISCORD_CLIENT_ID),
       clientSecret: String(process.env.DISCORD_CLIENT_SECRET)
     })
-  ],
-  pages: {
-    signIn: "/auth/signin"
-  }
+  ]
 });

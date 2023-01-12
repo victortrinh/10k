@@ -1,11 +1,9 @@
 import { Button, Spinner } from "flowbite-react";
 import { Container } from "./design-system";
 import { ModeToggle } from "./ModeToggle";
-import { signOut, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
-// import Link from "next/link";
-import Link from "next/link";
 import React from "react";
 import Router from "next/router";
 
@@ -76,12 +74,10 @@ const ShownTab = () => {
 
   if (!session) {
     return (
-      <Link href="/api/auth/signin">
-        <Button disabled={isLoading} gradientDuoTone="purpleToPink">
-          Log in
-          {isLoading && <Spinner className="ml-3" size="sm" light />}
-        </Button> 
-      </Link>
+      <Button onClick={() => signIn("discord")} disabled={isLoading} gradientDuoTone="purpleToPink">
+        Log in
+        {isLoading && <Spinner className="ml-3" size="sm" light />}
+      </Button> 
     );
   }
 
