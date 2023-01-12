@@ -41,7 +41,7 @@ export const AddRep = ({ exercise, user }: Props) => {
     const newSet = await response.json();
 
     addSet(newSet);
-    toast(`🔥 Successfully added ${reps} of ${exercise.name}`);
+    toast(`🔥 Successfully added ${reps} ${exercise.name}`);
     setIsLoading(false);
     setReps("");
     sendDiscordMessage(user.name, Number(reps), exercise.name);
