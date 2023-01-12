@@ -8,7 +8,7 @@ interface Props {
 
 export const AddReps = ({ exercise, users }: Props) => (
   <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-6 gap-y-2">
-    {users.map((user) => (
+    {users.filter(u => u.imageUrl).map((user) => (
       <AddRep key={user.id} user={user} exercise={exercise} />
     ))}
   </div>
