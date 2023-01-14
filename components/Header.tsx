@@ -1,14 +1,17 @@
-import { Button, Spinner } from "flowbite-react";
 import { Container } from "./design-system";
 import { ModeToggle } from "./ModeToggle";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useTheme } from "next-themes";
 import Image from "next/image";
-import React from "react";
-import Router from "next/router";
+import React, { ReactNode } from "react";
+import classNames from "classnames";
 
 const Header: React.FC = () => {
   const { theme } = useTheme();
+  const router = useRouter();
+  const isActive: (pathname: string) => boolean = (pathname) =>
+    router.pathname === pathname;
 
   const logoSize = 40;
 
@@ -37,23 +40,27 @@ const Header: React.FC = () => {
   }
 
   function onClickLogo() {
-    Router.push("/");
+    router.push("/");
   }
 
   return (
     <div className="w-full h-[60px] mb-6 flex items-center">
       <Container className="h-full">
         <div className="w-full h-full relative border-b border-gray-300 dark:border-gray-800 flex items-center justify-between">
-          <div className="flex items-center cursor-pointer" onClick={onClickLogo}>
-            {logo}
-            <Image
-              className="w-10 h-auto"
-              src="/images/stay-hard.png"
-              alt="Stay hard"
-              width={logoSize}
-              height={logoSize}
-              priority
-            />
+          <div className="flex items-center gap-8">
+            <div className=" flex items-center cursor-pointer" onClick={onClickLogo}>
+              {logo}
+              <Image
+                className="w-10 h-auto"
+                src="/images/stay-hard.png"
+                alt="Stay hard"
+                width={logoSize}
+                height={logoSize}
+                priority
+              />
+            </div>
+            <LinkButton isActive={isActive("/")} onClick={() => router.push("/")}>Add reps</LinkButton>
+            <LinkButton isActive={isActive("/total")} onClick={() => router.push("/total")}>Total</LinkButton>
           </div>
           <div className="flex items-center gap-3">
             <ShownTab />
@@ -74,17 +81,28 @@ const ShownTab = () => {
 
   if (!session) {
     return (
-      <Button onClick={() => signIn("discord")} disabled={isLoading} gradientDuoTone="purpleToPink">
+      <button className="font-medium dark:text-slate-200" onClick={() => signIn("discord")} disabled={isLoading}>
         Log in
-        {isLoading && <Spinner className="ml-3" size="sm" light />}
-      </Button> 
+      </button> 
     );
   }
 
   return (
-    <Button disabled={isLoading} gradientDuoTone="purpleToPink" onClick={() => signOut()}>
+    <LinkButton disabled={isLoading} onClick={() => signOut()}>
       Log out
-      {isLoading && <Spinner className="ml-3" size="sm" light />}
-    </Button>
+    </LinkButton>
   );
 };
+
+interface ButtonProps {
+  isActive?: boolean;
+  disabled?: boolean;
+  onClick: () => void;
+  children: ReactNode;
+}
+
+const LinkButton = ({ children, disabled, isActive, onClick }: ButtonProps) => (
+  <button className={classNames("h-[60px] font-medium dark:text-slate-200", isActive && "-mb-px border-b-2 border-slate-800 dark:border-slate-300")} disabled={disabled} onClick={onClick}>
+    {children}
+  </button>
+);

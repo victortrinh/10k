@@ -26,7 +26,7 @@ export const Heading = ({ as: Component, children }: Props) => {
   const gradientClassName = useMemo(() => {
     switch (Component) {
       case "h1":
-        return "to-pink-600 from-sky-400";
+        return "to-yellow-400 from-pink-600";
       case "h2":
         return "to-green-600 from-sky-400";
       default:
@@ -36,7 +36,7 @@ export const Heading = ({ as: Component, children }: Props) => {
 
   return (
     <Component
-      className={`${className} dark:text-white font-sans font-extrabold`}
+      className={`${className} dark:text-white font-sans font-extrabold tracking-wide`}
     >
       {Component === "h1" || Component === "h2"
         ? (

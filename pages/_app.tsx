@@ -14,7 +14,12 @@ import Router from "next/router";
 const inter = Inter({ subsets: ["latin"] });
 
 const App = ({ Component, pageProps }: AppProps) => {
+  const [mounted, setMounted] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const start = () => {
@@ -79,16 +84,18 @@ const App = ({ Component, pageProps }: AppProps) => {
               10K
             </title>
           </Head>
-          <main className={`${inter.className} font-sans`}>
-            {getShownComponent()}
-            <ToastContainer
-              position="top-right"
-              autoClose={3000}
-              closeOnClick
-              draggable
-              theme="dark"
-            />
-          </main>
+          {mounted &&           (
+            <main className={`${inter.className} font-sans`}>
+              {getShownComponent()}
+              <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                closeOnClick
+                draggable
+                theme="dark"
+              />
+            </main>
+          )}
         </>
       </ThemeProvider>
     </SessionProvider>

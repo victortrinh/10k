@@ -1,11 +1,14 @@
-import { AddReps } from "@components/main/add-reps/AddReps";
+import { AddRepsForm } from "@components/main/add-reps-form/AddRepsForm";
 import { Container, Heading } from "@components/design-system";
 import { Exercise, Set, User } from "@models/models";
 import { GetStaticProps } from "next";
 import { MainTabs } from "@components/main-tabs/MainTabs";
 import { RepsTable } from "@components/main/RepsTable";
+import { Tab } from "@headlessui/react";
+import { initializeSetStore } from "@stores/setStore";
+import { useSession } from "next-auth/react";
 import Layout from "@components/Layout";
-import React from "react";
+import React, { useEffect } from "react";
 import prisma from "@lib/prisma";
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -33,14 +36,7 @@ export const getStaticProps: GetStaticProps = async () => {
     ]
   });
 
-  const [firstExercise] = exercises;
-
   const sets = await prisma.set.findMany({
-    where: {
-      exercise: {
-        name: firstExercise.name
-      }
-    },
     orderBy: [
       {
         createdAt: "desc"
@@ -69,19 +65,36 @@ interface Props {
 }
 
 const Main = ({ exercises, users, sets }: Props) => {
-  const [firstExercise] = exercises;
+  useEffect(() => {
+    initializeSetStore(sets);
+  }, []);
+
+  const { data: session } = useSession();
 
   return (
     <Layout>
       <Container>
         <main>
-          <MainTabs exercises={exercises} exerciseName={firstExercise.name} />
-          <div className="mt-8 mb-6">
-            <Heading as="h1">Add reps for Pull ups</Heading>
-          </div>
+          <Heading as="h1">
+            Welcome 
+            {" "}
+            {session?.user.name}
+            !
+          </Heading>
           <div className="flex flex-col gap-8">
-            <AddReps exercise={firstExercise} users={users} />
-            <RepsTable sets={sets} exerciseId={firstExercise.id} users={users} />
+            <div className="flex gap-3">
+              <AddRepsForm exercises={exercises} />
+            </div>
+            <Tab.Group>
+              <MainTabs exercises={exercises} />
+              <Tab.Panels>
+                {exercises.map((exercise) => (
+                  <Tab.Panel key={exercise.id}>
+                    <RepsTable exerciseId={exercise.id} users={users} />
+                  </Tab.Panel>
+                ))}
+              </Tab.Panels>
+            </Tab.Group>
           </div>
         </main>
       </Container>

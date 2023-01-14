@@ -42,3 +42,15 @@ input[type="number"] {
     #ff2d55
   );
 }
+
+html {
+  background-color: #F1F9F5;
+}
+
+html.dark {
+  background-color: #0E141B;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  text-rendering: optimizelegibility;
+}

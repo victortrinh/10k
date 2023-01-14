@@ -1,17 +1,7 @@
-import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 
 export const ModeToggle = () => {
-  const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
 
   function onClick() {
     if (theme === "light") {
@@ -24,7 +14,6 @@ export const ModeToggle = () => {
   return (
     <button
       onClick={onClick}
-      aria-label="light"
       type="button"
       className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none rounded-lg text-sm p-2.5"
     >
