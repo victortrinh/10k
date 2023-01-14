@@ -1,5 +1,5 @@
 {
-    "name": "",
+    "name": "10k",
     "short_name": "",
     "icons": [
         {
@@ -8,7 +8,5 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
     "display": "standalone"
 }

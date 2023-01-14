@@ -4,10 +4,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": true
   },
-  "editor.formatOnSave": true,
-  "[html]": {
-    "editor.formatOnSave": false
-  },
+  "editor.formatOnSave": false,
   "javascript.format.enable": false,
   "javascript.validate.enable": true,
   "json.format.enable": false,

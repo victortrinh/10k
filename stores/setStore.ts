@@ -14,8 +14,8 @@ export const initializeSetStore = (sets: Set[]) =>
     sets
   }));
 
-export const addSet = (set: Set) => {
+export const addSets = (sets: Set[]) => {
   useSetStore.setState((state) => ({
-    sets: [set, ...state.sets]
+    sets: [...sets, ...state.sets]
   }));
 };

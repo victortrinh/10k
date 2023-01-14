@@ -4,20 +4,14 @@ import { Set, User } from "@models/models";
 import { Table } from "flowbite-react";
 import { format, isToday } from "date-fns";
 import { groupBy } from "lodash";
-import { initializeSetStore, useSetStore } from "@stores/setStore";
-import { useEffect } from "react";
+import { useSetStore } from "@stores/setStore";
 
 interface Props {
   exerciseId?: string;
   users: User[];
-  sets: Set[];
 }
 
-export const RepsTable = ({ sets: initialSets, exerciseId, users }: Props) => {
-  useEffect(() => {
-    initializeSetStore(initialSets);
-  }, []);
-
+export const RepsTable = ({ exerciseId, users }: Props) => {
   const sets = useSetStore((state) => state.sets);
   const filteredSets = sets.filter((set) => {
     if (!exerciseId) {
@@ -77,13 +71,13 @@ export const RepsTable = ({ sets: initialSets, exerciseId, users }: Props) => {
 
   return (
     <div className="overflow-x-auto max-w-full">
-      <Table striped className="min-w-[1100px] w-full">
+      <Table striped>
         <Table.Head className="bg-slate-200">
-          <Table.HeadCell>
+          <Table.HeadCell className="min-w-[100px]">
             Day
           </Table.HeadCell>
           {sortedUsers.map((user) => (
-            <Table.HeadCell key={user.id}>
+            <Table.HeadCell className="min-w-[100px]" key={user.id}>
               <UserDisplay
                 rank={getTotalRankingByUserId(user.id)}
                 user={user}

@@ -1,6 +1,6 @@
 export interface Set {
   id: string;
-  createdAt: string;
+  createdAt: Date;
   reps: number;
   user: User;
   userId: string;
@@ -13,6 +13,7 @@ export interface User {
   name: string;
   email?: string;
   imageUrl?: string;
+  image?: string;
   color?: string;
   sets: Set[];
 }

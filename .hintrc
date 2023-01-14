@@ -3,14 +3,6 @@
     "development"
   ],
   "hints": {
-    "apple-touch-icons": "off",
-    "compat-api/html": [
-      "default",
-      {
-        "ignore": [
-          "meta[name=theme-color]"
-        ]
-      }
-    ]
+    "apple-touch-icons": "off"
   }
 }

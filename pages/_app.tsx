@@ -14,7 +14,12 @@ import Router from "next/router";
 const inter = Inter({ subsets: ["latin"] });
 
 const App = ({ Component, pageProps }: AppProps) => {
+  const [mounted, setMounted] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const start = () => {
@@ -50,35 +55,33 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   return (
     <SessionProvider session={pageProps.session}>
+      <Head>
+        <link
+          rel="apple-touch-icon"
+          sizes="120x120"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <title>
+          10K
+        </title>
+      </Head>
       <ThemeProvider attribute="class">
-        <>
-          <Head>
-            <link
-              rel="apple-touch-icon"
-              sizes="120x120"
-              href="/apple-touch-icon.png"
-            />
-            <link
-              rel="icon"
-              type="image/png"
-              sizes="32x32"
-              href="/favicon-32x32.png"
-            />
-            <link
-              rel="icon"
-              type="image/png"
-              sizes="16x16"
-              href="/favicon-16x16.png"
-            />
-            <link rel="manifest" href="/site.webmanifest" />
-            <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000" />
-            <meta name="msapplication-TileColor" content="#da532c" />
-            <meta name="theme-color" content="#F1F9F5" media="(prefers-color-scheme: light)" />
-            <meta name="theme-color" content="#111827" media="(prefers-color-scheme: dark)" />
-            <title>
-              10K
-            </title>
-          </Head>
+        {mounted && (
           <main className={`${inter.className} font-sans`}>
             {getShownComponent()}
             <ToastContainer
@@ -89,7 +92,7 @@ const App = ({ Component, pageProps }: AppProps) => {
               theme="dark"
             />
           </main>
-        </>
+        )}
       </ThemeProvider>
     </SessionProvider>
   );

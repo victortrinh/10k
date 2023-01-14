@@ -61,6 +61,8 @@ export const UserDisplay = ({ rank, user, showName, centered, className, size = 
     );
   }, [custom]);
 
+  const src = user.imageUrl ?? user.image;
+
   return (
     <div
       className={classNames(
@@ -70,7 +72,7 @@ export const UserDisplay = ({ rank, user, showName, centered, className, size = 
       )}
     >
       <div className="relative w-fit">
-        {user.imageUrl && (
+        {src && (
           <Image
             className={classNames(
               `p-1 rounded-full ring-2 ring-${user.color}-500 dark:ring-${user.color}-200`,
@@ -78,7 +80,7 @@ export const UserDisplay = ({ rank, user, showName, centered, className, size = 
             )}
             width={size}
             height={size}
-            src={user.imageUrl}
+            src={src}
             alt={user.name}
           />
         )}

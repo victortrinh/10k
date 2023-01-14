@@ -68,7 +68,7 @@ export const TotalPoints = ({ users }: Props) => {
           </div>
         </div>
       </div>
-      <Table striped className="mb-6">
+      <Table striped>
         <Table.Head>
           <Table.HeadCell>
             Rank

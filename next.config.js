@@ -8,6 +8,6 @@ module.exports = {
     SECRET: process.env.SECRET
   },
   images: {
-    domains: ["i.imgur.com"]
+    domains: ["i.imgur.com", "cdn.discordapp.com"]
   }
 };
