@@ -16,11 +16,7 @@ const toxicMessages = [
   "YAMATEEE KURASAIIIIIIII 😝 "
 ];
 
-export function sendDiscordMessage(
-  name: string,
-  reps: number,
-  exercise: string
-) {
+export function sendDiscordMessage(message: string) {
   const request = new XMLHttpRequest();
   request.open(
     "POST",
@@ -31,7 +27,7 @@ export function sendDiscordMessage(
 
   const params = {
     username: "Stay Hard Beast",
-    content: `${name} just did ${reps} ${exercise}! ${sample(toxicMessages)}!`
+    content: `${message}. ${sample(toxicMessages)}!`
   };
 
   request.send(JSON.stringify(params));

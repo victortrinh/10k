@@ -2,11 +2,11 @@ import { Button, Label, Spinner, TextInput } from "flowbite-react";
 import { Exercise, Set, User } from "@models/models";
 import { HiOutlinePlus } from "react-icons/hi";
 import { addSets } from "@stores/setStore";
-import { useState } from "react";
-// import { sendDiscordMessage } from "@lib/discord";
+import { sendDiscordMessage } from "@lib/discord";
 import { toast } from "react-toastify";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
 
 interface Props {
   exercises: Exercise[];
@@ -74,7 +74,7 @@ const Form = ({ exercises, user }: FormProps) => {
     reset();
 
     setIsLoading(false);
-    // sendDiscordMessage(user.name, Number(reps), exercise.name);
+    sendDiscordMessage(`${user.name} just did ${addedSets.map(set => `${set.reps} ${set.exercise.name.toLowerCase()}`).join(", ").replace(/, ((?:.(?!, ))+)$/, " and $1")}`);
   };
 
   const disableAddButton = !watch().sets.some(set => set.reps && set.reps > 0);
