@@ -1,11 +1,11 @@
-import { Container } from "./design-system";
+import { Button, Dropdown, Navbar } from "flowbite-react";
 import { ModeToggle } from "./ModeToggle";
+import { UserDisplay } from "./UserDisplay";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useTheme } from "next-themes";
 import Image from "next/image";
-import React, { ReactNode } from "react";
-import classNames from "classnames";
+import React from "react";
 
 const Header: React.FC = () => {
   const { theme } = useTheme();
@@ -15,60 +15,44 @@ const Header: React.FC = () => {
 
   const logoSize = 40;
 
-  let logo = (
-    <Image
-      className="w-10 h-auto"
-      src="/images/logo-white.png"
-      alt="10k"
-      width={logoSize}
-      height={logoSize}
-      priority
-    />
-  );
-
-  if (theme === "light") {
-    logo = (
-      <Image
-        className="w-10 h-auto"
-        src="/images/logo-black.png"
-        alt="10k"
-        width={logoSize}
-        height={logoSize}
-        priority
-      />
-    );
-  }
-
-  function onClickLogo() {
-    router.push("/");
-  }
-
   return (
-    <div className="w-full h-[60px] mb-6 flex items-center">
-      <Container className="h-full">
-        <div className="w-full h-full relative border-b border-gray-300 dark:border-gray-800 flex items-center justify-between">
-          <div className="flex items-center gap-8">
-            <div className=" flex items-center cursor-pointer" onClick={onClickLogo}>
-              {logo}
-              <Image
-                className="w-10 h-auto"
-                src="/images/stay-hard.png"
-                alt="Stay hard"
-                width={logoSize}
-                height={logoSize}
-                priority
-              />
-            </div>
-            <LinkButton isActive={isActive("/")} onClick={() => router.push("/")}>Add reps</LinkButton>
-            <LinkButton isActive={isActive("/total")} onClick={() => router.push("/total")}>Total</LinkButton>
-          </div>
-          <div className="flex items-center gap-3">
-            <ShownTab />
-            <ModeToggle />
-          </div>
-        </div>
-      </Container>
-    </div>
+    <Navbar
+      fluid
+      rounded
+      className="mb-8 bg-slate-100 dark:bg-background container border-b border-gray-300 dark:border-gray-800 "
+    >
+      <Navbar.Brand href="/" className="mr-8">
+        <Image
+          src={`/images/${theme === "light"
+            ? "logo-black"
+            : "logo-white"}.png`}
+          alt="10k"
+          width={logoSize}
+          height={logoSize}
+          priority
+        />
+        <Image
+          src="/images/stay-hard.png"
+          alt="Stay hard"
+          width={logoSize}
+          height={logoSize}
+          priority
+        />
+      </Navbar.Brand>
+      <div className="flex flex-1 gap-2 justify-end md:order-2">
+        <ModeToggle />
+        <ShownTab />
+        <Navbar.Toggle />
+      </div>
+      <Navbar.Collapse>
+        <Navbar.Link className="font-bold" href="/" active={isActive("/")}>
+          Home
+        </Navbar.Link>
+        <Navbar.Link className="font-bold"  href="/total" active={isActive("/total")}>
+          Total
+        </Navbar.Link>
+      </Navbar.Collapse>
+    </Navbar>
   );
 };
 
@@ -81,28 +65,31 @@ const ShownTab = () => {
 
   if (!session) {
     return (
-      <button className="font-medium dark:text-slate-200" onClick={() => signIn("discord")} disabled={isLoading}>
-        Log in
-      </button> 
+      <Button outline gradientDuoTone="purpleToPink" onClick={() => signIn("discord")} disabled={isLoading}>
+        Get started
+      </Button>
     );
   }
 
+  const { user } = session;
+
   return (
-    <LinkButton disabled={isLoading} onClick={() => signOut()}>
-      Log out
-    </LinkButton>
+    <Dropdown
+      arrowIcon={false}
+      inline
+      label={<UserDisplay user={user} />}
+    >
+      <Dropdown.Header>
+        <span className="block text-sm">
+          {user.name}
+        </span>
+        <span className="block truncate text-sm font-medium">
+          {user.email}
+        </span>
+      </Dropdown.Header>
+      <Dropdown.Item onClick={() => signOut()}>
+        Sign out
+      </Dropdown.Item>
+    </Dropdown>
   );
 };
-
-interface ButtonProps {
-  isActive?: boolean;
-  disabled?: boolean;
-  onClick: () => void;
-  children: ReactNode;
-}
-
-const LinkButton = ({ children, disabled, isActive, onClick }: ButtonProps) => (
-  <button className={classNames("h-[60px] font-medium dark:text-slate-200", isActive && "-mb-px border-b-2 border-slate-800 dark:border-slate-300")} disabled={disabled} onClick={onClick}>
-    {children}
-  </button>
-);

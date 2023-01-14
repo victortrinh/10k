@@ -13,10 +13,16 @@ interface Props {
 }
 
 export const AddRepsForm = (props: Props) => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
-  if (!session?.user) {
-    return <p>Log in to enter your reps</p>;
+  if (!session) {
+    return (
+      <p>
+        {status === "loading"
+          ? <Spinner size="xl"  />
+          : "Log in to enter your reps"}
+      </p>
+    );
   }
 
   return <Form {...props} user={session.user} />;
@@ -80,7 +86,7 @@ const Form = ({ exercises, user }: FormProps) => {
   const disableAddButton = !watch().sets.some(set => set.reps && set.reps > 0);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-3">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {fields.map((set, index) => (
