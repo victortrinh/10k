@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "next",
+    "dev": "concurrently -n NEXT,TS -c magenta,cyan \"next\" \"yarn ts --watch\"",
+    "ts": "tsc --noEmit --incremental --preserveWatchOutput --pretty",
     "build": "next build",
     "start": "next start",
     "lint": "next lint --fix"
@@ -45,6 +46,7 @@
     "@types/react": "17.0.38",
     "@typescript-eslint/parser": "^5.48.1",
     "autoprefixer": "^10.4.13",
+    "concurrently": "^7.6.0",
     "eslint": "^8.31.0",
     "postcss": "^8.4.20",
     "prisma": "^4.8.0",
