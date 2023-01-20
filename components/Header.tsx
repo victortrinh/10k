@@ -80,7 +80,7 @@ const ShownTab = () => {
     <Dropdown
       arrowIcon={false}
       inline
-      label={<UserDisplay user={user} />}
+      label={<UserDisplay showDiscordImage user={user} />}
     >
       <Dropdown.Header>
         <span className="block text-sm">

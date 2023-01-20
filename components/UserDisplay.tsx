@@ -12,9 +12,10 @@ interface Props {
   rank?: Ranking;
   size?: number;
   className?: string;
+  showDiscordImage?: boolean;
 }
 
-export const UserDisplay = ({ rank, user, showName, centered, className, size = 40 }: Props) => {
+export const UserDisplay = ({ rank, user, showName, centered, className, showDiscordImage, size = 40 }: Props) => {
   const custom = useMemo(() => {
     switch (rank) {
       case "gold":
@@ -61,7 +62,9 @@ export const UserDisplay = ({ rank, user, showName, centered, className, size = 
     );
   }, [custom]);
 
-  const src = user.imageUrl ?? user.image;
+  const src = showDiscordImage
+    ? user.image
+    : user.imageUrl ?? user.image;
 
   return (
     <div
