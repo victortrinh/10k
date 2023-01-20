@@ -12,6 +12,9 @@ export default NextAuth({
       clientSecret: String(process.env.DISCORD_CLIENT_SECRET)
     })
   ],
+  session: {
+    strategy: "database"
+  },
   callbacks: {
     //@ts-ignore
     session: async ({ session, user }) => ({
