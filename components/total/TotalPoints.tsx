@@ -34,7 +34,6 @@ export const TotalPoints = ({ users }: Props) => {
 
   return (
     <>
-      <Heading as="h2">Total points</Heading>
       <div className="mb-6 relative w-full h-[190px]">
         <div className="absolute right-1/2 translate-x-1/2">
           <div className="relative">
@@ -68,6 +67,7 @@ export const TotalPoints = ({ users }: Props) => {
           </div>
         </div>
       </div>
+      <Heading as="h2">Total points</Heading>
       <Table striped>
         <Table.Head>
           <Table.HeadCell>

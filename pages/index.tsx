@@ -65,26 +65,26 @@ interface Props {
 }
 
 const Main = ({ exercises, users, sets }: Props) => {
+  const { data: session } = useSession();
+
   useEffect(() => {
     initializeSetStore(sets);
   }, []);
-
-  const { data: session } = useSession();
 
   return (
     <Layout>
       <Container>
         <main>
-          <Heading as="h1">
-            Welcome 
-            {" "}
-            {session?.user.name}
-            !
-          </Heading>
+          <div className="z-10">
+            <Heading as="h1">
+              Welcome 
+              {" "}
+              {session?.user.name}
+              !
+            </Heading>
+          </div>
           <div className="flex flex-col gap-8">
-            <div className="flex gap-3">
-              <AddRepsForm exercises={exercises} />
-            </div>
+            <AddRepsForm exercises={exercises} />
             <Tab.Group>
               <MainTabs exercises={exercises} />
               <Tab.Panels>

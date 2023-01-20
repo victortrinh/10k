@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import React from "react";
+import classNames from "classnames";
 
 const Header: React.FC = () => {
   const { theme } = useTheme();
@@ -19,9 +20,9 @@ const Header: React.FC = () => {
     <Navbar
       fluid
       rounded
-      className="mb-8 bg-slate-100 dark:bg-background container border-b border-gray-300 dark:border-gray-800 "
+      className="pt-6 pb-5 mb-8 !bg-transparent"
     >
-      <Navbar.Brand href="/" className="mr-8">
+      <Navbar.Brand href="/" className="mr-8 bg-background/[0.05] dark:bg-background/[0.8] px-4 py-2 rounded-full z-10">
         <Image
           src={`/images/${theme === "light"
             ? "logo-black"
@@ -39,16 +40,18 @@ const Header: React.FC = () => {
           priority
         />
       </Navbar.Brand>
-      <div className="flex flex-1 gap-2 justify-end md:order-2">
-        <ModeToggle />
-        <ShownTab />
+      <div className="flex flex-1 justify-end md:order-2 ">
+        <div className="bg-background/[0.05] dark:bg-background/[0.8] px-6 py-3 rounded-full z-10 flex gap-2">
+          <ModeToggle />
+          <ShownTab />
+        </div>
         <Navbar.Toggle />
       </div>
-      <Navbar.Collapse>
-        <Navbar.Link className="font-bold" href="/" active={isActive("/")}>
+      <Navbar.Collapse className="bg-background/[0.05] dark:bg-background/[0.8] px-8 py-5 md:rounded-full z-10">
+        <Navbar.Link className={classNames("font-bold", isActive("/") && "!text-black dark:!text-[#FFBC49]")} href="/" active={isActive("/")}>
           Home
         </Navbar.Link>
-        <Navbar.Link className="font-bold"  href="/total" active={isActive("/total")}>
+        <Navbar.Link className={classNames("font-bold", isActive("/total") && "!text-black dark:!text-[#FFBC49]")}  href="/total" active={isActive("/total")}>
           Total
         </Navbar.Link>
       </Navbar.Collapse>

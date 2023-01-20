@@ -1,5 +1,7 @@
+import { BeautifulCard } from "@components/design-system/BeautifulCard";
 import { Button, Label, Spinner, TextInput } from "flowbite-react";
 import { Exercise, Set, User } from "@models/models";
+import { Heading } from "@components/design-system";
 import { HiOutlinePlus } from "react-icons/hi";
 import { addSets } from "@stores/setStore";
 import { sendDiscordMessage } from "@lib/discord";
@@ -17,11 +19,11 @@ export const AddRepsForm = (props: Props) => {
 
   if (!session) {
     return (
-      <p>
+      <div className="w-full flex justify-center">
         {status === "loading"
           ? <Spinner size="xl"  />
-          : "Log in to enter your reps"}
-      </p>
+          : <div className="w-full text-center"><Heading as="h3">Log in to enter your reps</Heading></div>}
+      </div>
     );
   }
 
@@ -86,40 +88,48 @@ const Form = ({ exercises, user }: FormProps) => {
   const disableAddButton = !watch().sets.some(set => set.reps && set.reps > 0);
 
   return (
-    <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex flex-col gap-3">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          {fields.map((set, index) => (
-            <div className="w-full" key={set.id}>
-              <Label
-                className="font-semibold"
-                htmlFor="rep"
-                value={exercises[index].name}
-              />
-              <TextInput
-                id={set.id}
-                {...register(`sets.${index}.reps`)}
-                placeholder="0"
-                type="number"
-                disabled={isLoading}
-              />
-            </div>
-          ))}
+    <div className="w-full flex justify-center">
+      <BeautifulCard className="w-full max-w-[400px] px-4 py-8">
+        <div className="w-full text-center">
+          <Heading as="h2">
+            Enter reps
+          </Heading>
         </div>
-        <Button
-          className="w-fit"
-          type="submit"
-          disabled={disableAddButton}
-          gradientDuoTone="purpleToPink"
-        >
-          Add
-          <div className="ml-3">
-            {isLoading
-              ? <Spinner size="sm" light />
-              : <HiOutlinePlus />}
+        <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex flex-col gap-3">
+            {fields.map((set, index) => (
+              <div className="w-full" key={set.id}>
+                <Label
+                  className="font-extrabold"
+                  htmlFor="rep"
+                  value={exercises[index].name}
+                />
+                <TextInput
+                  id={set.id}
+                  {...register(`sets.${index}.reps`)}
+                  placeholder="0"
+                  type="number"
+                  disabled={isLoading}
+                />
+              </div>
+            ))}
+            <Button
+              className="mt-6 font-extrabold"
+              size="lg"
+              type="submit"
+              disabled={disableAddButton}
+              gradientDuoTone="pinkToOrange"
+            >
+              Add
+              <div className="ml-3">
+                {isLoading
+                  ? <Spinner size="sm" light />
+                  : <HiOutlinePlus />}
+              </div>
+            </Button>
           </div>
-        </Button>
-      </div>
-    </form>
+        </form>
+      </BeautifulCard>
+    </div>
   );
 };

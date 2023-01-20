@@ -16,7 +16,10 @@ export default NextAuth({
     //@ts-ignore
     session: async ({ session, user }) => ({
       ...session,
-      user: user
+      user: {
+        ...session.user,
+        ...user
+      }
     })
   }
 });

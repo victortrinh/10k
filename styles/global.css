@@ -17,6 +17,11 @@ input[type="number"] {
   @apply transition-all duration-200;
 }
 
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
 *::-webkit-scrollbar-track {
   @apply bg-transparent;
 }
