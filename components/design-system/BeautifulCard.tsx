@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const BeautifulCard = ({ children, className }: Props) => (
-  <Card className={classNames(className, "rounded-xl border-none dark:bg-gradient-to-tr from-background/[0.5]")}>
+  <Card className={classNames(className, "rounded-xl")}>
     {children}
   </Card>
 );

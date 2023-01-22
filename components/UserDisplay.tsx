@@ -1,4 +1,5 @@
 import { User } from "@models/models";
+import { motion } from "framer-motion";
 import { useMemo } from "react";
 import Image from "next/image";
 import classNames from "classnames";
@@ -74,7 +75,15 @@ export const UserDisplay = ({ rank, user, showName, centered, className, showDis
         className
       )}
     >
-      <div className="relative w-fit">
+      <motion.div whileHover={{ 
+        scale: 1.5, 
+        rotate: 360, 
+        transition: {
+          repeat: Infinity
+        } 
+      }}
+      className="relative w-fit"
+      >
         {src && (
           <Image
             className={classNames(
@@ -88,7 +97,7 @@ export const UserDisplay = ({ rank, user, showName, centered, className, showDis
           />
         )}
         {medal}
-      </div>
+      </motion.div>
       {showName && (
         <div className="hidden md:block font-medium dark:text-white">
           {user.name}

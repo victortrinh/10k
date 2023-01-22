@@ -4,6 +4,7 @@ import { Exercise, Set, User } from "@models/models";
 import { Heading } from "@components/design-system";
 import { HiOutlinePlus } from "react-icons/hi";
 import { addSets } from "@stores/setStore";
+import { motion, useAnimation } from "framer-motion";
 import { sendDiscordMessage } from "@lib/discord";
 import { toast } from "react-toastify";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -47,6 +48,7 @@ interface FormData {
 }
 
 const Form = ({ exercises, user }: FormProps) => {
+  const controls = useAnimation();
   const [isLoading, setIsLoading] = useState(false);
   const sets: PostSet[] = exercises.map(exercise => ({
     exerciseId: exercise.id,
@@ -89,23 +91,22 @@ const Form = ({ exercises, user }: FormProps) => {
 
   return (
     <div className="w-full flex justify-center">
-      <BeautifulCard className="w-full max-w-[400px] px-4 py-8">
-        <div className="w-full text-center">
-          <Heading as="h2">
-            Enter reps
-          </Heading>
-        </div>
+      <BeautifulCard className="w-full max-w-[400px] p-3">
+        <Heading as="h2">
+          Enter reps
+        </Heading>
         <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-3">
             {fields.map((set, index) => (
               <div className="w-full" key={set.id}>
                 <Label
-                  className="font-extrabold"
+                  className="font-bold"
                   htmlFor="rep"
                   value={exercises[index].name}
                 />
                 <TextInput
                   id={set.id}
+                  className="mt-2"
                   {...register(`sets.${index}.reps`)}
                   placeholder="0"
                   type="number"
@@ -113,20 +114,38 @@ const Form = ({ exercises, user }: FormProps) => {
                 />
               </div>
             ))}
-            <Button
-              className="mt-6 font-extrabold"
-              size="lg"
-              type="submit"
-              disabled={disableAddButton}
-              gradientDuoTone="pinkToOrange"
+            <motion.div
+              whileHover={!disableAddButton
+                ? { 
+                  rotate: [-7, 0 , 7],
+                  scale: 1.1,
+                  transition: {
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                    duration: 0.2
+                  } }
+                : {}}
+              whileTap={!disableAddButton
+                ? { scale: 0.9 }
+                : {}}
+              className="w-full"
             >
-              Add
-              <div className="ml-3">
-                {isLoading
-                  ? <Spinner size="sm" light />
-                  : <HiOutlinePlus />}
-              </div>
-            </Button>
+              <Button
+                onMouseEnter={() => controls.start("start")}
+                className="mt-6 font-extrabold w-full"
+                size="lg"
+                type="submit"
+                disabled={disableAddButton}
+                gradientDuoTone="pinkToOrange"
+              >
+                Add
+                <div className="ml-3">
+                  {isLoading
+                    ? <Spinner size="sm" light />
+                    : <HiOutlinePlus />}
+                </div>
+              </Button>
+            </motion.div>
           </div>
         </form>
       </BeautifulCard>

@@ -83,6 +83,7 @@ const Main = ({ exercises, users, sets }: Props) => {
               !
             </Heading>
           </div>
+          
           <div className="flex flex-col gap-8">
             <AddRepsForm exercises={exercises} />
             <Tab.Group>

@@ -9,7 +9,7 @@ export const Heading = ({ as: Component, children }: Props) => {
   const className = useMemo(() => {
     switch (Component) {
       case "h1":
-        return "text-4xl md:text-5xl lg:text-6xl mb-4 md:mb-6 lg:mb-8";
+        return "text-4xl md:text-5xl lg:text-6xl mb-4 md:mb-6 lg:mb-8 w-full flex justify-center font-extrabold";
       case "h2":
         return "text-xl md:text-2xl lg:text-3xl mb-1 md:mb-2 lg:mb-3";
       case "h3":
@@ -34,20 +34,18 @@ export const Heading = ({ as: Component, children }: Props) => {
 
   return (
     <Component
-      className={`${className} dark:text-white font-sans font-extrabold tracking-wide`}
+      className={`${className} dark:text-white font-sans tracking-wide`}
     >
       {Component === "h1"
         ? (
-          <div className="w-full flex justify-center">
-            <span className={`text-transparent bg-clip-text bg-gradient-to-r ${gradientClassName}`}>
-              {children}
-            </span>
-          </div>
+          <span className={`text-transparent bg-clip-text bg-gradient-to-r ${gradientClassName}`}>
+            {children}
+          </span>
         )
         : (
-          <>
+          <span className="font-bold">
             {children}
-          </>
+          </span>
         )}
     </Component>
   );
