@@ -76,7 +76,7 @@ export const UserDisplay = ({ rank, user, showName, centered, className, showDis
       )}
     >
       <motion.div whileHover={{ 
-        scale: 1.5, 
+        scale: 1.2, 
         rotate: 360, 
         transition: {
           repeat: Infinity

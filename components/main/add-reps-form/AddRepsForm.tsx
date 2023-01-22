@@ -116,14 +116,7 @@ const Form = ({ exercises, user }: FormProps) => {
             ))}
             <motion.div
               whileHover={!disableAddButton
-                ? { 
-                  rotate: [-7, 0 , 7],
-                  scale: 1.1,
-                  transition: {
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                    duration: 0.2
-                  } }
+                ? { scale: 1.1 }
                 : {}}
               whileTap={!disableAddButton
                 ? { scale: 0.9 }
