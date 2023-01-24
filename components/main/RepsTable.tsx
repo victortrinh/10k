@@ -70,7 +70,9 @@ export const RepsTable = ({ exerciseId, users }: Props) => {
     .sort((a, b) => b.reps - a.reps);
 
   return (
-    <div className="overflow-x-auto max-w-full">
+    <div
+      className="overflow-x-auto max-w-full"
+    >
       <Table striped>
         <Table.Head className="bg-slate-200">
           <Table.HeadCell className="min-w-[100px]">

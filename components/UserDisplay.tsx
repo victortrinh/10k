@@ -75,14 +75,15 @@ export const UserDisplay = ({ rank, user, showName, centered, className, showDis
         className
       )}
     >
-      <motion.div whileHover={{ 
-        scale: 1.2, 
-        rotate: 360, 
-        transition: {
-          repeat: Infinity
-        } 
-      }}
-      className="relative w-fit"
+      <motion.div 
+        whileHover={{ 
+          scale: 1.3,
+          rotate: 375, 
+          transition: {
+            ease: "linear"
+          } 
+        }}
+        className="relative w-fit"
       >
         {src && (
           <Image

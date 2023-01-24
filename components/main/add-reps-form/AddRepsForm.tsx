@@ -21,9 +21,11 @@ export const AddRepsForm = (props: Props) => {
   if (!session) {
     return (
       <div className="w-full flex justify-center">
-        {status === "loading"
-          ? <Spinner size="xl"  />
-          : <div className="w-full text-center"><Heading as="h3">Log in to enter your reps</Heading></div>}
+        <BeautifulCard className="w-full max-w-[400px] h-[468px] p-3">
+          {status === "loading"
+            ? <Spinner size="xl"  />
+            : <div className="w-full text-center"><Heading as="h3">Log in to enter your reps</Heading></div>}
+        </BeautifulCard>
       </div>
     );
   }
