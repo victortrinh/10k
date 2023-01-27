@@ -13,16 +13,33 @@ export default NextAuth({
     })
   ],
   session: {
-    strategy: "database"
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60
   },
   callbacks: {
     //@ts-ignore
-    session: async ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        ...user
+    session: async ({ session, user, token }) => {
+      if (!token.user) {
+        return {
+          session,
+          user
+        };
       }
-    })
+
+      return {
+        ...session,
+        user: {
+          ...user,
+          ...token.user
+        }
+      };
+    },
+    jwt: async ({ token, user }) => {
+      if (user) {
+        token.user = user;
+      }
+
+      return token;
+    }
   }
 });
