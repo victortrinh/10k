@@ -17,11 +17,13 @@ export default NextAuth({
     maxAge: 30 * 24 * 60 * 60
   },
   callbacks: {
+    // @ts-ignore
     session: async ({ session, user, token }) => {
       if (!token.user) {
         return {
-          session,
-          user
+          ...session,
+          user,
+          expires: session.expires
         };
       }
 
@@ -29,8 +31,9 @@ export default NextAuth({
         ...session,
         user: {
           ...user,
-          ...token.user
-        }
+          ...token.user as object
+        },
+        expires: session.expires
       };
     },
     jwt: async ({ token, user }) => {
