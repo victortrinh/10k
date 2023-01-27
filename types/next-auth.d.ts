@@ -2,6 +2,6 @@ import { User } from "@models/models";
 
 declare module "next-auth" {
   interface Session {
-    user: User;
+    user: Omit<User, "sets">;
   }
 }

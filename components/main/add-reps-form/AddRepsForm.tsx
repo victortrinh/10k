@@ -34,7 +34,7 @@ export const AddRepsForm = (props: Props) => {
 };
 
 interface FormProps extends Props {
-  user: User;
+  user: Omit<User, "sets">;
 }
 
 interface PostSet extends Omit<Set, "id" | "createdAt" | "reps" | "user" | "exercise"> {

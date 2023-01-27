@@ -1,3 +1,5 @@
+import { DefaultUser } from "next-auth";
+
 export interface Set {
   id: string;
   createdAt: Date;
@@ -8,12 +10,9 @@ export interface Set {
   exerciseId: string;
 }
 
-export interface User {
+export interface User extends DefaultUser {
   id: string;
-  name: string;
-  email?: string;
   imageUrl?: string;
-  image?: string;
   color?: string;
   sets: Set[];
 }

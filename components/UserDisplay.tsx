@@ -7,7 +7,7 @@ import classNames from "classnames";
 export type Ranking = "gold" | "silver" | "bronze";
 
 interface Props {
-  user: User;
+  user: Omit<User, "sets">;
   showName?: boolean;
   centered?: boolean;
   rank?: Ranking;
@@ -94,7 +94,7 @@ export const UserDisplay = ({ rank, user, showName, centered, className, showDis
             width={size}
             height={size}
             src={src}
-            alt={user.name}
+            alt={user.name || "name of user"}
           />
         )}
         {medal}
