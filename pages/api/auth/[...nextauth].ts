@@ -17,7 +17,6 @@ export default NextAuth({
     maxAge: 30 * 24 * 60 * 60
   },
   callbacks: {
-    //@ts-ignore
     session: async ({ session, user, token }) => {
       if (!token.user) {
         return {
