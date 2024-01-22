@@ -22,7 +22,7 @@ export const RepsTable = ({ exerciseId, users }: Props) => {
   });
 
   const days: Set[][] = Object.values(groupBy(filteredSets, (set) =>
-    format(new Date(set.createdAt), "dd MMM")
+    format(new Date(set.createdAt), "dd MMM yyyy")
   ));
 
   const setsByUser: Set[][] = Object.values(groupBy(filteredSets, (set) => set.userId));
@@ -71,7 +71,7 @@ export const RepsTable = ({ exerciseId, users }: Props) => {
 
   return (
     <div
-      className="overflow-x-auto max-w-full"
+      className="max-w-full overflow-x-auto"
     >
       <Table striped>
         <Table.Head className="bg-slate-200">
